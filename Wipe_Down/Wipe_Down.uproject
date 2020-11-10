@@ -1,0 +1,13 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "4.25",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "Wipe_Down",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
