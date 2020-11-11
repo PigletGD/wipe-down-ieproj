@@ -72,3 +72,6 @@ Wipe_Down/[Pp]lugins/*/Intermediate/*
 
 # Cache files for the editor to use
 Wipe_Down/[Dd]erivedDataCache/*
+
+# Imported Assets
+Wipe_Down/[Cc]ontent/[Ii]mported/*
