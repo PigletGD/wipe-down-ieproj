@@ -3,26 +3,33 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "Components/StaticMeshComponent.h"
+#include "Components/ActorComponent.h"
 #include "TowerSpawner.generated.h"
 
 
-UCLASS()
-class WIPE_DOWN_API ATowerSpawner : public AActor
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+class WIPE_DOWN_API UTowerSpawner : public UActorComponent
 {
 	GENERATED_BODY()
-	
+
 public:	
-	// Sets default values for this actor's properties
-	ATowerSpawner();
+	// Sets default values for this component's properties
+	UTowerSpawner();
 
 protected:
-	// Called when the game starts or when spawned
+	// Called when the game starts
 	virtual void BeginPlay() override;
 
 public:	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+private:
+	UPROPERTY(EditAnywhere) TSubclassOf<AActor> Tower;
+	AActor* Spawned = nullptr;
+
+	UPROPERTY(EditAnywhere) float Distance = 100.0f;
+
+	void PutAtPointer();
+	void Spawn();
 };

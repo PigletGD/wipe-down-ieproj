@@ -74,4 +74,8 @@ Wipe_Down/[Pp]lugins/*/Intermediate/*
 Wipe_Down/[Dd]erivedDataCache/*
 
 # Imported Assets
+<<<<<<< HEAD
 Wipe_Down/[Cc]ontent/[Ii]mported/*
+=======
+Wipe_Down/[Cc]ontent/[Ii]mported/*
+>>>>>>> ba01368f399344052af9dcba328c85462fc891b0
