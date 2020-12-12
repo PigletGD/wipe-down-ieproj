@@ -2,6 +2,7 @@
 
 
 #include "TowerSpawner.h"
+#include "Camera/CameraComponent.h"
 
 
 // Sets default values for this component's properties
@@ -22,15 +23,12 @@ void UTowerSpawner::BeginPlay()
 
 	// ...
 
-	UInputComponent* InputComponent = this->GetOwner()->FindComponentByClass<UInputComponent>();
+	SetInput();
 
-	if(InputComponent != nullptr)
-	{
-		// spawn by pressing t or left mouse button
-		
-		InputComponent->BindAction("SpawnTower", EInputEvent::IE_Pressed, this, &UTowerSpawner::Spawn);
-		InputComponent->BindAction("Spawn", EInputEvent::IE_Pressed, this, &UTowerSpawner::Spawn);
-	}
+
+	APlayerController* PlayerController = this->GetWorld()->GetFirstPlayerController();
+	PlayerController->bShowMouseCursor = true;
+	
 	
 }
 
@@ -48,21 +46,40 @@ void UTowerSpawner::TickComponent(float DeltaTime, ELevelTick TickType, FActorCo
 
 void UTowerSpawner::PutAtPointer()
 {
+	
 	if(Spawned != nullptr)
 	{
 		FVector location;
 		FRotator rotation;
-		this->GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(location, rotation);
-		FVector lineTraceEnd = location + rotation.Vector() * this->Distance;
 
-		FHitResult hitResult;
+		FVector mousePos;
+		FVector mouseRot;
+		
+		
+		this->GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(location, rotation);
+		
+
+		APlayerController* PlayerController = this->GetWorld()->GetFirstPlayerController();
+
+		//get mouseposition onto world. out mousePos, out mouseRot
+		PlayerController->DeprojectMousePositionToWorld(mousePos, mouseRot);
+
+		FVector lineTraceEnd = location + mouseRot * this->Distance;
+
+		//get hitresult
 		FCollisionQueryParams traceParams(FName(TEXT("tracequery")), false, this->GetOwner());
 		FCollisionObjectQueryParams objectTypeParams(ECollisionChannel::ECC_WorldStatic);
-		this->GetWorld()->LineTraceSingleByObjectType(hitResult, location, lineTraceEnd, objectTypeParams, traceParams);
+		this->GetWorld()->LineTraceSingleByObjectType(HitResult, location, lineTraceEnd, objectTypeParams, traceParams);
+		
 
-		if(hitResult.GetActor() == nullptr)
+		if (HitResult.GetActor() != nullptr)
 		{
-			this->Spawned->SetActorLocation(lineTraceEnd);
+			UE_LOG(LogTemp, Warning, TEXT("Hitresult: %s"), *HitResult.GetActor()->GetName());
+		}
+		
+		if(HitResult.GetActor() == nullptr)
+		{
+			
 			this->Spawned->SetActorHiddenInGame(true);
 		}
 		else
@@ -71,8 +88,11 @@ void UTowerSpawner::PutAtPointer()
 			FVector origin;
 			FVector bounds;
 			this->Spawned->GetActorBounds(false, origin, bounds, false);
-			FVector newPosition = hitResult.ImpactPoint + FVector(0, 0, bounds.Z);
+			FVector newPosition = HitResult.ImpactPoint + FVector(0, 0, bounds.Z);
 			this->Spawned->SetActorLocation(newPosition);
+
+			FRotator rotator = *new FRotator(0,0,0);
+			this->Spawned->SetActorRotation(rotator);
 		}
 	}
 }
@@ -87,9 +107,35 @@ void UTowerSpawner::Spawn()
 		if (Tower != nullptr)
 			this->Spawned = GetWorld()->SpawnActor<AActor>(Tower, location, rotation);
 	}
-	else
+	else if (HitResult.GetActor() != nullptr)
 	{
 		Spawned = nullptr;
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Spawned"));
+}
+
+void UTowerSpawner::Despawn()
+{
+	if (Spawned != nullptr)
+	{
+		Spawned->Destroy();
+
+		Spawned = nullptr;
+	}
+}
+
+void UTowerSpawner::SetInput()
+{
+	UInputComponent* InputComponent = this->GetOwner()->FindComponentByClass<UInputComponent>();
+
+	if (InputComponent != nullptr)
+	{
+		// spawn by pressing t or left mouse button
+
+		InputComponent->BindAction("SpawnTower", EInputEvent::IE_Pressed, this, &UTowerSpawner::Spawn);
+		InputComponent->BindAction("Spawn", EInputEvent::IE_Pressed, this, &UTowerSpawner::Spawn);
+		InputComponent->BindAction("CancelSpawn", IE_Pressed, this, &UTowerSpawner::Despawn);
 	}
 }
 
