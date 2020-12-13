@@ -74,4 +74,17 @@ Wipe_Down/[Pp]lugins/*/Intermediate/*
 Wipe_Down/[Dd]erivedDataCache/*
 
 # Imported Assets
+<<<<<<< HEAD
+<<<<<<< HEAD
 Wipe_Down/[Cc]ontent/[Ii]mported/*
+=======
+Wipe_Down/[Cc]ontent/[Ii]mported/*
+>>>>>>> ba01368f399344052af9dcba328c85462fc891b0
+=======
+Wipe_Down/[Cc]ontent/[Ii]mported/*
+
+# FPS Package
+Wipe_Down/[Cc]ontent/FirstPerson/*
+Wipe_Down/[Cc]ontent/FirstPersonBP/*
+Wipe_Down/[Cc]ontent/FirstPersonCPP/*
+>>>>>>> ff96e95c0e0d410b8d7f61ada747a0c8edb4924d
