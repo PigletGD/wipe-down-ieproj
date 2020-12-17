@@ -35,4 +35,5 @@ private:
 	void Spawn();
 	void Despawn();
 	void SetInput();
+	void Create();
 };
