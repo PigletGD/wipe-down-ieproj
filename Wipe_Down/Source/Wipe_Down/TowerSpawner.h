@@ -29,7 +29,7 @@ private:
 	AActor* Spawned = nullptr;
 	FHitResult HitResult;
 
-	UPROPERTY(EditAnywhere) float Distance = 1000.0f;
+	UPROPERTY(EditAnywhere) float Distance = 99999.0f;
 
 	void PutAtPointer();
 	void Spawn();
