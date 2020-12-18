@@ -73,6 +73,7 @@ AGrid::AGrid()
 	TArray<int> selectionTriangles;
 	CreateLine(startSelection, endSelection, this->tileSize, selectionVertices, selectionTriangles);
 
+	selectionProceduralMesh->SetVisibility(false);
 	selectionProceduralMesh->CreateMeshSection(0, selectionVertices, selectionTriangles, TArray<FVector>(), TArray<FVector2D>(), TArray<FColor>(), TArray<FProcMeshTangent>(), false);
 	selectionProceduralMesh->SetMaterial(0, selectionMaterialInstance);
 }

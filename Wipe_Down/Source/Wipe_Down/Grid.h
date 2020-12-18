@@ -54,4 +54,5 @@ private:
 	UPROPERTY(EditAnywhere) UMaterial* gridMaterial;
 	UMaterialInstanceDynamic* lineMaterialInstance;
 	UMaterialInstanceDynamic* selectionMaterialInstance;
+
 };

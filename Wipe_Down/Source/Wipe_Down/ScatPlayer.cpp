@@ -31,7 +31,7 @@ AScatPlayer::AScatPlayer()
     this->CameraTargetPoint->SetupAttachment(RootComponent);
 
     this->CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Boom"));
-    this->CameraBoom->TargetArmLength = 1500.0f;
+    this->CameraBoom->TargetArmLength = 1200.0f;
     this->CameraBoom->SetupAttachment(this->CameraTargetPoint);
 
     this->FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Follow Camera"));
