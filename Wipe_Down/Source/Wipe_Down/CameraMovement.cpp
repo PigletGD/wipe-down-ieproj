@@ -66,7 +66,7 @@ void UCameraMovement::Movement(float DeltaTime)
 	FVector location = this->GetOwner()->GetTransform().GetLocation();
 	location.X += this->MovementX * DeltaTime * this->Speed;
 	location.Y += this->MovementY * DeltaTime * this->Speed;
-
+	
 	//UE_LOG(LogTemp, Warning, TEXT("MoveX = %f, MoveY = %f, Speed = %f"), MovementX, MovementY, Speed);
 	
 	this->GetOwner()->SetActorLocation(location);
