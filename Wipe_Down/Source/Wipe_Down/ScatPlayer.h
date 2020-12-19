@@ -12,6 +12,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "WipeDownGameMode.h"
 
 #include "ScatPlayer.generated.h"
 
@@ -42,7 +43,22 @@ private:
 
 	UPROPERTY(EditAnywhere) FVector CameraDistanceOffset = FVector(0.0f, 0.0f, 40.0f);
 
+	AWipeDownGameMode* wipeDownGameMode;
+
+	UPROPERTY(EditAnywhere) TSubclassOf<AActor> Tower;
+	AActor* Spawned = nullptr;
+	FHitResult HitResult;
+
+	UPROPERTY(EditAnywhere) float Distance = 2000.0f;
+
+	int row = -90;
+	int column = -90;
+
 public:
 	void MoveForward(float Axis);
 	void MoveRight(float Axis);
+	void Build();
+
+private:
+	void InitializeTower();
 };

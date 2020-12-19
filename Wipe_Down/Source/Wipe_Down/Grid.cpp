@@ -102,7 +102,7 @@ void AGrid::InitializeVariables()
 	this->lineColor = FLinearColor(0.487467f, 0.256693f, 0.588542f, 1.0f);
 	this->lineOpacity = 0.75f;
 
-	this->selectionColor = FLinearColor(0.640625f, 0.230225f, 0.230225f, 1.0f);
+	this->selectionColor = FLinearColor(0.640625f, 0.408065f, 0.230225f, 1.0f);
 	this->selectionOpacity = 0.5;
 }
 
@@ -169,3 +169,82 @@ UMaterialInstanceDynamic* AGrid::CreateMaterialInstance(FLinearColor color, floa
 float AGrid::GetGridWidth() const { return this->numColumns * this->tileSize; }
 
 float AGrid::GetGridHeight() const { return this->numRows * this->tileSize; }
+
+bool AGrid::LocationToTile(FVector location, int& row, int& column)
+{
+	float actorLocationX = GetActorLocation().X;
+	float nonFlooredX = (((location.X - actorLocationX) / this->GetGridHeight()) * this->numRows);
+	row = (int)floor(nonFlooredX);
+
+	float actorLocationY = GetActorLocation().Y;
+	float nonFlooredY = (((location.Y - actorLocationY) / this->GetGridWidth()) * this->numColumns);
+	column = (int)floor(nonFlooredY);
+
+	return TileValid(row, column);
+}
+
+bool AGrid::TileValid(int row, int column)
+{
+  if (row >= 0 && row < numRows &&
+      column >= 0 && column < numColumns) {
+	  return true;
+  }
+
+  return false;
+}
+
+void AGrid::SetSelectedTile(int row, int column)
+{
+	FVector gridLocation;
+	if(TileToGridLocation(gridLocation, row, column, false))
+	{
+		this->selectionProceduralMesh->SetVisibility(true);
+		FVector newLocation = FVector(gridLocation.X, gridLocation.Y, GetActorLocation().Z);
+		this->selectionProceduralMesh->SetWorldLocation(newLocation);
+	}
+	else
+	{
+		this->selectionProceduralMesh->SetVisibility(false);
+	} 
+}
+
+bool AGrid::TileToGridLocation(FVector& gridLocation, int row, int column, bool isCentered)
+{
+	bool validity = TileValid(row, column);
+
+	if (validity)
+	{
+		gridLocation.X = (row * this->tileSize) + GetActorLocation().X;
+		gridLocation.Y = (column * this->tileSize) + GetActorLocation().Y;
+
+		if (isCentered)
+		{
+			gridLocation.X += this->tileSize / 2.0f;
+			gridLocation.Y += this->tileSize / 2.0f;
+		}
+	}
+
+	return validity;
+}
+
+bool AGrid::TileOccupied(int row, int column)
+{
+	FString key = FString::Printf(TEXT("%d %d"), row, column);
+	return this->BaseMap.Contains(key);
+}
+
+void AGrid::SetTileOccupation(int row, int column, AActor* actor)
+{
+	FString key = FString::Printf(TEXT("%d %d"), row, column);
+	this->BaseMap.Add(key, actor);
+}
+
+AActor* AGrid::GetTileOccupation(int row, int column)
+{
+	FString key = FString::Printf(TEXT("%d %d"), row, column);
+        if (TileOccupied(row, column)) {
+	    return this->BaseMap[key];
+        }
+
+        return nullptr;
+}
