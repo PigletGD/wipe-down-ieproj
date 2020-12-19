@@ -21,6 +21,12 @@ class WIPE_DOWN_API AWipeDownGameMode : public AGameModeBase
 public:
     AWipeDownGameMode();
     AGrid* GetGrid() const ;
+    UFUNCTION(BlueprintCallable, Category = "Game") int GetMaxEnemies();
+    UFUNCTION(BlueprintCallable, Category = "Game") void AddMaxEnemies(int value);
+    UFUNCTION(BlueprintCallable, Category = "Game") void NextWave();
+    UFUNCTION(BlueprintCallable, Category = "Game") int GetNumberOfEnemies();
+    UFUNCTION(BlueprintCallable, Category = "Game") void ReduceNumberOfEnemies();
+    UFUNCTION(BlueprintCallable, Category = "Game") void SetNumberOfEnemies(int value);
 
     AGrid* grid;
 

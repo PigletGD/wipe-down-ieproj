@@ -167,8 +167,9 @@ void AScatPlayer::Build()
 	}
 	else if (HitResult.GetActor() != nullptr)
 	{
+		/*
 		AGrid* grid = this->wipeDownGameMode->GetGrid();
-
+		
 		if (!grid->TileOccupied(this->row, this->column)) {
 			grid->SetTileOccupation(this->row, this->column, this->Spawned);
 			Spawned = nullptr;
@@ -177,6 +178,8 @@ void AScatPlayer::Build()
 		else {
 			UE_LOG(LogTemp, Warning, TEXT("Tile Occupied"));
 		}
+		*/
+		Spawned = nullptr;
 		
 	}
 
