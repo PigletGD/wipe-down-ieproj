@@ -24,8 +24,14 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	bool LocationToTile(FVector location, int& row, int& column);
+	void SetSelectedTile(int row, int column);
+	bool TileToGridLocation(FVector& gridLocation, int row, int column, bool isCentered);
 	// Add Dictionary for grid information holding here
 
+	bool TileOccupied(int row, int column);
+	void SetTileOccupation(int row, int column, AActor* actor);
+	AActor* GetTileOccupation(int row, int column);
 private:
 	void InitializeVariables();
 
@@ -36,6 +42,7 @@ private:
 
 	float GetGridWidth() const;
 	float GetGridHeight() const;
+	bool TileValid(int row, int column);
 
 	UPROPERTY(EditAnywhere) UProceduralMeshComponent* linesProceduralMesh;
 	UPROPERTY(EditAnywhere) UProceduralMeshComponent* selectionProceduralMesh;
@@ -54,4 +61,6 @@ private:
 	UPROPERTY(EditAnywhere) UMaterial* gridMaterial;
 	UMaterialInstanceDynamic* lineMaterialInstance;
 	UMaterialInstanceDynamic* selectionMaterialInstance;
+
+	TMap<FString, AActor*> BaseMap;
 };
