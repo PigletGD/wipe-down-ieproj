@@ -71,15 +71,8 @@ void UTowerSpawner::PutAtPointer()
 		FCollisionObjectQueryParams objectTypeParams(ECollisionChannel::ECC_WorldStatic);
 		this->GetWorld()->LineTraceSingleByObjectType(HitResult, location, lineTraceEnd, objectTypeParams, traceParams);
 		
-
-		if (HitResult.GetActor() != nullptr)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Hitresult: %s"), *HitResult.GetActor()->GetName());
-		}
-		
 		if(HitResult.GetActor() == nullptr)
 		{
-			
 			this->Spawned->SetActorHiddenInGame(true);
 		}
 		else
@@ -88,7 +81,24 @@ void UTowerSpawner::PutAtPointer()
 			FVector origin;
 			FVector bounds;
 			this->Spawned->GetActorBounds(false, origin, bounds, false);
-			FVector newPosition = HitResult.ImpactPoint + FVector(0, 0, bounds.Z);
+			UStaticMeshComponent* staticmesh = this->Spawned->FindComponentByClass<UStaticMeshComponent>();
+
+			FVector newPosition;
+			if (staticmesh == nullptr)
+			{
+				newPosition = HitResult.ImpactPoint + FVector(0, 0, bounds.Z);
+				UE_LOG(LogTemp, Warning, TEXT("Static Mesh is Null"));
+			}
+			else
+			{
+				FVector min;
+				FVector max;
+				staticmesh->GetLocalBounds(min, max);
+				newPosition = HitResult.ImpactPoint + FVector(0, 0, max.Z);
+			}
+			
+
+
 			this->Spawned->SetActorLocation(newPosition);
 
 			FRotator rotator = *new FRotator(0,0,0);
@@ -137,5 +147,9 @@ void UTowerSpawner::SetInput()
 		InputComponent->BindAction("Spawn", EInputEvent::IE_Pressed, this, &UTowerSpawner::Spawn);
 		InputComponent->BindAction("CancelSpawn", IE_Pressed, this, &UTowerSpawner::Despawn);
 	}
+}
+
+void UTowerSpawner::Create()
+{
 }
 
