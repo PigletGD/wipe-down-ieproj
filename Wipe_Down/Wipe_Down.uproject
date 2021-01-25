@@ -12,7 +12,7 @@
 				"Engine"
 			]
 		}
-	],
+  ],
 	"Plugins": [
 		{
 			"Name": "MultiUserClient",
