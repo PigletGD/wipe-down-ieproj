@@ -6,6 +6,8 @@
 #include "GameFramework/GameModeBase.h"
 
 #include "Grid.h"
+#include "ObjectPoolActor.h"
+#include "ObjectPoolCharacter.h"
 #include "Kismet/GameplayStatics.h"
 
 #include "WipeDownGameMode.generated.h"
@@ -30,9 +32,12 @@ public:
 
     AGrid* grid;
 
-    int waveNumber;
+    int waveNumber = 0;
     int numberOfEnemies;
     int maxEnemies;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolActor* bulletPool;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolCharacter* basicEnemyPool;
 
 private:
     void BeginPlay() override;

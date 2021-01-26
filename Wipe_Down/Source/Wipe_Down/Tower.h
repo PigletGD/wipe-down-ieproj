@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/SceneComponent.h"
 #include "Components/SphereComponent.h"
 #include "Components/PrimitiveComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Tower.generated.h"
 
 UCLASS()
@@ -24,7 +26,22 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	virtual void TakeDamage(float damage);
+	virtual void Die();
+
+	virtual bool ActionCondition();
+	virtual void RunAction();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) int maxTowerHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float towerActionRate;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float towerPrice;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) int currentTowerHealth;
+	float currentActionTick;
+
 private:
-	UPROPERTY(EditAnywhere) UPrimitiveComponent* base;
-	UPROPERTY(EditAnywhere) USphereComponent* Spherecollider;
+	//UPROPERTY(EditAnywhere) UPrimitiveComponent* base;
+	//UPROPERTY(EditAnywhere) USphereComponent* sphereCollider;
+	UPROPERTY(EditAnywhere) UStaticMeshComponent* BaseMesh;
 };

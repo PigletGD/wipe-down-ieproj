@@ -1,9 +1,3 @@
-
-
-
-
-
-
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
@@ -27,9 +21,9 @@ void AWipeDownGameMode::BeginPlay()
 
     if (FoundActors.Num() > 0) {
         this->grid = (AGrid*)FoundActors[0];
-        UE_LOG(LogTemp, Warning, TEXT("Grid found"));
+        //UE_LOG(LogTemp, Warning, TEXT("Grid found"));
     }
-    else UE_LOG(LogTemp, Warning, TEXT("Grid not found"));
+    //else UE_LOG(LogTemp, Warning, TEXT("Grid not found"));
 }
 
 AGrid* AWipeDownGameMode::GetGrid() const {
