@@ -19,7 +19,7 @@ void UTower_BP::BeginPlay()
 {
 	Super::BeginPlay();
 	//if(this->GetOwner()->FindComponentByClass<USphereComponent>() != NULL)
-	//UE_LOG(LogTemp, Warning, TEXT("%f"), this->GetOwner()->FindComponentByClass<USphereComponent>());
+	UE_LOG(LogTemp, Warning, TEXT("%f"), this->GetOwner()->FindComponentByClass<USphereComponent>());
 	// ...
 	
 }

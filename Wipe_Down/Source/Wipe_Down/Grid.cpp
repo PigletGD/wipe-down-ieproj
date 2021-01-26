@@ -92,7 +92,6 @@ void AGrid::Tick(float DeltaTime)
 
 }
 
-// General values once game starts
 void AGrid::InitializeVariables()
 {
 	this->numRows = 20;

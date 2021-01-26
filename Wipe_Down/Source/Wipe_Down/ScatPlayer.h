@@ -13,7 +13,6 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "WipeDownGameMode.h"
-#include "Tower.h"
 
 #include "ScatPlayer.generated.h"
 
@@ -46,9 +45,8 @@ private:
 
 	AWipeDownGameMode* wipeDownGameMode;
 
-	//UPROPERTY(EditAnywhere) TSubclassOf<AActor> Tower;
-	UPROPERTY(EditAnywhere) ATower* Tower = nullptr;
-	UPROPERTY(EditAnywhere) AActor* Spawned = nullptr;
+	UPROPERTY(EditAnywhere) TSubclassOf<AActor> Tower;
+	AActor* Spawned = nullptr;
 	FHitResult HitResult;
 
 	UPROPERTY(EditAnywhere) float Distance = 2000.0f;

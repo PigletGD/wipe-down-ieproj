@@ -2,7 +2,6 @@
 
 
 #include "ScatPlayer.h"
-#include "WipeDownGameInstance.h"
 
 // Sets default values
 AScatPlayer::AScatPlayer()
@@ -39,7 +38,7 @@ AScatPlayer::AScatPlayer()
     this->FollowCamera->SetupAttachment(this->CameraBoom, USpringArmComponent::SocketName);
     this->FollowCamera->bUsePawnControlRotation = false; // Ensures camera does not rotate relative to spring arm
 
-	//InitializeTower();
+	InitializeTower();
 }
 
 // Called when the game starts or when spawned
@@ -49,12 +48,12 @@ void AScatPlayer::BeginPlay()
 
 	this->wipeDownGameMode = (AWipeDownGameMode*)GetWorld()->GetAuthGameMode();
 
-	/*if (this->wipeDownGameMode != nullptr) {
+	if (this->wipeDownGameMode != nullptr) {
           UE_LOG(LogTemp, Warning, TEXT("Found Game Mode"));
 	}
     else {
       UE_LOG(LogTemp, Warning, TEXT("Game Mode Not Found"));
-    }*/
+    }
 
     
 }
@@ -163,45 +162,32 @@ void AScatPlayer::Build()
 		FVector location = this->GetOwner()->GetActorLocation();
 		FRotator rotation = this->GetOwner()->GetActorRotation();
 
-		//if (Tower != nullptr)
-		//	this->Spawned = GetWorld()->SpawnActor<AActor>(Tower, location, rotation);
-
-		if (Tower != nullptr) {
-			this->Spawned = GetWorld()->SpawnActor<AActor>(Tower->GetClass(), location, rotation);
-			this->Spawned->SetActorTickEnabled(false);
-			this->Spawned->SetActorEnableCollision(false);
-		}
-		//else UE_LOG(LogTemp, Warning, TEXT("Could not find"));
+		if (Tower != nullptr)
+			this->Spawned = GetWorld()->SpawnActor<AActor>(Tower, location, rotation);
 	}
 	else if (HitResult.GetActor() != nullptr)
 	{
-		//
+		/*
 		AGrid* grid = this->wipeDownGameMode->GetGrid();
-		UWipeDownGameInstance* gameInstance = Cast<UWipeDownGameInstance>(GetWorld()->GetGameInstance());
-
-		if (!grid->TileOccupied(this->row, this->column) && gameInstance->GetMoney() >= Tower->towerPrice) {
+		
+		if (!grid->TileOccupied(this->row, this->column)) {
 			grid->SetTileOccupation(this->row, this->column, this->Spawned);
-			this->Spawned->SetActorTickEnabled(true);
-			this->Spawned->SetActorEnableCollision(true);
-			gameInstance->SpendMoney(Tower->towerPrice);
 			Spawned = nullptr;
-			// UE_LOG(LogTemp, Warning, TEXT("Spawned"));
+			UE_LOG(LogTemp, Warning, TEXT("Spawned"));
 		}
 		else {
-			// UE_LOG(LogTemp, Warning, TEXT("Tile Occupied"));
-			Spawned->Destroy();
+			UE_LOG(LogTemp, Warning, TEXT("Tile Occupied"));
 		}
-		//
+		*/
 		Spawned = nullptr;
 		
 	}
+
+	
 }
 
 void AScatPlayer::InitializeTower()
 {
-	/*
-	UE_LOG(LogTemp, Warning, TEXT("Execute"));
-
     static ConstructorHelpers::FObjectFinder<UBlueprint> TowerBlueprint(TEXT("Blueprint'/Game/Blueprints/Tower_BP.Tower_BP'"));
 	if (TowerBlueprint.Object != nullptr)
 	{
@@ -212,5 +198,4 @@ void AScatPlayer::InitializeTower()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Could Not Find"));
 	}
-	*/
 }
