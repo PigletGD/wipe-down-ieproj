@@ -140,19 +140,25 @@ void AScatPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 void AScatPlayer::MoveForward(float Axis)
 {
+	FRotator CamRotation = this->CameraTargetPoint->GetComponentTransform().Rotator();
+	FRotator CamYawRotation(0, CamRotation.Yaw, 0);
+
     const FRotator Rotation = Controller->GetControlRotation();
     const FRotator YawRotation(0, Rotation.Yaw, 0);
 
-    const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+    const FVector Direction = FRotationMatrix(CamYawRotation).GetUnitAxis(EAxis::X);
     AddMovementInput(Direction, Axis);
 }
 
 void AScatPlayer::MoveRight(float Axis)
 {
+	FRotator CamRotation = this->CameraTargetPoint->GetComponentTransform().Rotator();
+	FRotator CamYawRotation(0, CamRotation.Yaw, 0);
+
     const FRotator Rotation = Controller->GetControlRotation();
     const FRotator YawRotation(0, Rotation.Yaw, 0);
 
-    const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+    const FVector Direction = FRotationMatrix(CamYawRotation).GetUnitAxis(EAxis::Y);
     AddMovementInput(Direction, Axis);
 }
 
