@@ -7,6 +7,8 @@
 // Sets default values
 ATowerProjectile::ATowerProjectile()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Constructed Tower Projectile"));
+
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -25,7 +27,8 @@ ATowerProjectile::ATowerProjectile()
 void ATowerProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	UE_LOG(LogTemp, Warning, TEXT("Begin Play Tower Projectile"));
 }
 
 // Called every frame
@@ -55,6 +58,7 @@ void ATowerProjectile::BulletSetup(AScatEnemy* newTarget, int newProjectileDamag
 	this->target = newTarget;
 	this->projectileDamage = newProjectileDamage;
 	this->SetActorLocation(newPosition);
+	this->SetActorScale3D(FVector(this->meshScale));
 }
 
 void ATowerProjectile::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,

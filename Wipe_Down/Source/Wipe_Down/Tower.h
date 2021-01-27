@@ -32,6 +32,8 @@ public:
 
 	virtual bool ActionCondition();
 	virtual void RunAction();
+
+	void SetCoords(int x, int y);
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) int maxTowerHealth;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float towerActionRate;
@@ -40,6 +42,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) int currentTowerHealth;
 	float currentActionTick;
 
+	int xCoord;
+	int yCoord;
 private:
 	//UPROPERTY(EditAnywhere) UPrimitiveComponent* base;
 	//UPROPERTY(EditAnywhere) USphereComponent* sphereCollider;

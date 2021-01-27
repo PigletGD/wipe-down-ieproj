@@ -2,10 +2,13 @@
 
 
 #include "Tower.h"
+#include "WipeDownGameMode.h"
 
 // Sets default values
 ATower::ATower()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Constructed Tower"));
+
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -22,6 +25,8 @@ void ATower::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	UE_LOG(LogTemp, Warning, TEXT("Begin Play Tower"));
+
 	this->currentActionTick = 0;
 	this->currentTowerHealth = this->maxTowerHealth;
 }
@@ -52,6 +57,13 @@ void ATower::TakeDamage(float damage)
 void ATower::Die()
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Tower has been killed"));
+	AWipeDownGameMode* wipeDownGameMode = (AWipeDownGameMode*)GetWorld()->GetAuthGameMode();
+	AGrid* grid = wipeDownGameMode->GetGrid();
+
+	if (grid->TileOccupied(this->xCoord, this->yCoord)) {
+		grid->RemoveTileOccupation(this->xCoord, this->yCoord);
+	}
+
 	this->Destroy();
 }
 
@@ -63,4 +75,10 @@ bool ATower::ActionCondition()
 void ATower::RunAction()
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Running an action from base class"));
+}
+
+void ATower::SetCoords(int x, int y)
+{
+	this->xCoord = x;
+	this->yCoord = y;
 }

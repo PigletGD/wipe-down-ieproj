@@ -6,6 +6,7 @@
 void AHolySeat::BeginPlay()
 {
 	Super::BeginPlay();
+	UE_LOG(LogTemp, Warning, TEXT("Begin Play Holy Seat"));
 
 	gameInstance = Cast<UWipeDownGameInstance>(GetWorld()->GetGameInstance());
 }

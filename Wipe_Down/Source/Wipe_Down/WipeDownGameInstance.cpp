@@ -7,6 +7,8 @@ void UWipeDownGameInstance::Init()
 {
 	Super::Init();
 
+	UE_LOG(LogTemp, Warning, TEXT("Initialized Game Instance"));
+
 	this->money = 0;
 }
 

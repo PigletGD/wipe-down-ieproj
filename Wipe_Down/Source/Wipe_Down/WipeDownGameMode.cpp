@@ -5,12 +5,15 @@
 
 AWipeDownGameMode::AWipeDownGameMode()
 {
+    UE_LOG(LogTemp, Warning, TEXT("Constructed Game Mode"));
     PrimaryActorTick.bCanEverTick = true;
 }
 
 void AWipeDownGameMode::BeginPlay()
 {
     Super::BeginPlay();
+
+    UE_LOG(LogTemp, Warning, TEXT("Begin Play Game Mode"));
 
     TArray<AActor*> FoundActors;
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGrid::StaticClass(), FoundActors);
