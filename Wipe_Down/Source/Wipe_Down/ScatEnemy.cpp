@@ -73,13 +73,33 @@ void AScatEnemy::TakeDamage(int damage) {
 
 		int randNum = FMath::RandRange(0, 100);
 
-		if (randNum > 90) {
+		if (randNum >= 0) {
 			int randPool = FMath::RandRange(0, 2);
 
+			AActor* actorPU;
+
 			switch (randPool) {
-			case 0: GM->holySeatRatePUPool->RequestPoolable()->SetActorLocation(this->GetActorLocation()); break;
-			case 1: GM->wallHealthPUPool->RequestPoolable()->SetActorLocation(this->GetActorLocation()); break;
-			case 2: GM->shootingRatePUPool->RequestPoolable()->SetActorLocation(this->GetActorLocation()); break;
+			case 0:
+				actorPU = GM->holySeatRatePUPool->RequestPoolable();
+
+				if (actorPU != nullptr) {
+					actorPU->SetActorLocation(this->GetActorLocation());
+				}
+				break;
+			case 1:
+				actorPU = GM->wallHealthPUPool->RequestPoolable();
+				
+				if (actorPU != nullptr) {
+					actorPU->SetActorLocation(this->GetActorLocation());
+				}
+				break;
+			case 2:
+				actorPU = GM->shootingRatePUPool->RequestPoolable();
+				
+				if (actorPU != nullptr) {
+					actorPU->SetActorLocation(this->GetActorLocation());
+				}
+				break;
 			}
 		}
 

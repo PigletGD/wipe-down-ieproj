@@ -28,11 +28,11 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	int currentHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) int currentHealth;
 	float currentAttackTick;
 
-	UPROPERTY(EditAnywhere) int maxHealth;
-	UPROPERTY(EditAnywhere) float enemyAttackRate;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) int maxHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float enemyAttackRate;
 
 	void TakeDamage(int damage);
 	void Attack();
