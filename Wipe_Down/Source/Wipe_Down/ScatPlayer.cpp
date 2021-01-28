@@ -59,6 +59,8 @@ void AScatPlayer::BeginPlay()
 	}
 	else UE_LOG(LogTemp, Warning, TEXT("Got Game Mode"));
 
+	this->zLocation = 854;
+
 	this->buildModeOn = false;
 }
 
@@ -117,9 +119,11 @@ void AScatPlayer::Tick(float DeltaTime)
 				this->Spawned->SetActorHiddenInGame(false);
 				FVector gridLocation;
 				grid->TileToGridLocation(gridLocation, this->row, this->column, true);
-				//gridLocation.Z = this->Spawned->GetActorLocation().Z;
+				gridLocation.Z = zLocation;
 				this->Spawned->SetActorLocation(gridLocation);
 			}
+
+			//this->Spawned->SetActorLocation(this->GetActorLocation());
 
 			// Sets the selected tile to location regardless of whether mouse is on grid
 			grid->SetSelectedTile(this->row, this->column);
@@ -194,6 +198,11 @@ void AScatPlayer::Build()
 	{
 		if (Spawned == nullptr)
 		{
+			AGrid* grid = this->wipeDownGameMode->GetGrid();
+
+			FVector gridLocation;
+			grid->TileToGridLocation(gridLocation, this->row, this->column, true);
+
 			FVector location = this->GetOwner()->GetActorLocation();
 			FRotator rotation = this->GetOwner()->GetActorRotation();
 
@@ -202,6 +211,7 @@ void AScatPlayer::Build()
 
 			if (Tower != nullptr) {
 				this->Spawned = GetWorld()->SpawnActor<AActor>(Tower->GetClass(), location, rotation);
+				//this->Spawned->SetActorHiddenInGame(false);
 				this->Spawned->SetActorTickEnabled(false);
 				this->Spawned->SetActorEnableCollision(false);
 			}

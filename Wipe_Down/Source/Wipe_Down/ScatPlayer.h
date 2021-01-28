@@ -72,4 +72,6 @@ public:
 
 private:
 	void InitializeTower();
+
+	float zLocation;
 };

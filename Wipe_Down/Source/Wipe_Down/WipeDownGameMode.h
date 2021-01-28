@@ -29,6 +29,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Game") int GetNumberOfEnemies();
     UFUNCTION(BlueprintCallable, Category = "Game") void ReduceNumberOfEnemies();
     UFUNCTION(BlueprintCallable, Category = "Game") void SetNumberOfEnemies(int value);
+    UFUNCTION(BlueprintCallable, Category = "Game") void UnloadGrid();
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite) AGrid* grid;
 

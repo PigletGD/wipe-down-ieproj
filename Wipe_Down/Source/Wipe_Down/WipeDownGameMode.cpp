@@ -57,3 +57,7 @@ void AWipeDownGameMode::ReduceNumberOfEnemies() {
 void AWipeDownGameMode::SetNumberOfEnemies(int value) {
     this->numberOfEnemies = value;
 }
+
+void AWipeDownGameMode::UnloadGrid() {
+    this->grid->UnloadAllOfGrid();
+}

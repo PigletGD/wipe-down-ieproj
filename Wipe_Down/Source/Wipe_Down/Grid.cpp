@@ -260,3 +260,14 @@ AActor* AGrid::GetTileOccupation(int row, int column)
 
         return nullptr;
 }
+
+void AGrid::UnloadAllOfGrid()
+{
+	for (auto It = this->BaseMap.CreateConstIterator(); It; ++It)
+	{
+		AActor* actor = It.Value();
+		actor->Destroy();
+	}
+
+	this->BaseMap.Empty();
+}
