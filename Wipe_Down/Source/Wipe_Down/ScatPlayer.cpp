@@ -125,6 +125,14 @@ void AScatPlayer::Tick(float DeltaTime)
 			grid->SetSelectedTile(this->row, this->column);
 		}
 	}
+	/*if(isMovingForward != 0 && isMovingSidewards != 0 && walkingSound->IsPlaying() == false)
+	{
+		this->walkingSound->Play();
+	}
+	else if(isMovingForward == 0 && isMovingSidewards == 0 && walkingSound->IsPlaying() == true)
+	{
+		this->walkingSound->Stop();
+	}*/
 }
 
 // Called to bind functionality to input
@@ -157,6 +165,7 @@ void AScatPlayer::MoveForward(float Axis)
 
     const FVector Direction = FRotationMatrix(CamYawRotation).GetUnitAxis(EAxis::X);
     AddMovementInput(Direction, Axis);
+	this->isMovingForward = Axis;
 }
 
 void AScatPlayer::MoveRight(float Axis)
@@ -169,6 +178,7 @@ void AScatPlayer::MoveRight(float Axis)
 
     const FVector Direction = FRotationMatrix(CamYawRotation).GetUnitAxis(EAxis::Y);
     AddMovementInput(Direction, Axis);
+	this->isMovingSidewards = Axis;
 }
 
 void AScatPlayer::RotateCamera(float Axis) {
