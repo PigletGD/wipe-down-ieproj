@@ -42,13 +42,11 @@ void ABasicShootingTower::Tick(float DeltaTime)
 void ABasicShootingTower::RunAction()
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Basic Shooting Tower Action Run"));
-	AWipeDownGameMode* GM = (AWipeDownGameMode*)this->GetWorld()->GetAuthGameMode();
-	ATowerProjectile* bullet = (ATowerProjectile*)GM->bulletPool->RequestPoolable();
+	AWipeDownGameMode* GM = (AWipeDownGameMode*) this->GetWorld()->GetAuthGameMode();
+	ATowerProjectile* bullet = (ATowerProjectile*) GM->bulletPool->RequestPoolable();
 
-	//if (bullet == nullptr) UE_LOG(LogTemp, Warning, TEXT("Bullet is null"));
-	//if (targets.Num() <= 0) UE_LOG(LogTemp, Warning, TEXT("Target is null"));
-
-	if (targets.Num() > 0) bullet->BulletSetup(targets[0], 1, this->GetActorLocation());
+	if (bullet != nullptr && targets.Num() > 0) bullet->BulletSetup(targets[0], 1, this->GetActorLocation());
+	else if (bullet != nullptr) GM->bulletPool->ReleasePoolable((APoolableActor*)bullet);
 }
 
 bool ABasicShootingTower::ActionCondition()
