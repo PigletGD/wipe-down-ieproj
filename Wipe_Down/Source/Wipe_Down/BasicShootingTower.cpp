@@ -10,6 +10,8 @@ ABasicShootingTower::ABasicShootingTower()
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Basic Shooting Tower Constructor"));
 
+	UE_LOG(LogTemp, Warning, TEXT("Constructed Shooting Tower"));
+
 	this->sphereRadius = 300.0f;
 
 	this->CollisionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
@@ -29,6 +31,9 @@ ABasicShootingTower::ABasicShootingTower()
 void ABasicShootingTower::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (this->gameInstance->shootingRatePUActive)
+		this->currentActionTick += DeltaTime * 0.5f;
 
 	/*DrawDebugSphere(this->GetWorld(), this->GetActorLocation(), sphereRadius, 20,
 		FColor::Purple, false, -1, 0, 1);*/

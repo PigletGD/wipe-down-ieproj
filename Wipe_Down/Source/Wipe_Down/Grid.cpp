@@ -6,6 +6,8 @@
 // Sets default values
 AGrid::AGrid()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Constructed Grid"));
+
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -83,6 +85,9 @@ void AGrid::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UE_LOG(LogTemp, Warning, TEXT("Begin Play Grid"));
+
+	this->SetActorHiddenInGame(true);
 }
 
 // Called every frame
@@ -238,6 +243,12 @@ void AGrid::SetTileOccupation(int row, int column, AActor* actor)
 {
 	FString key = FString::Printf(TEXT("%d %d"), row, column);
 	this->BaseMap.Add(key, actor);
+}
+
+void AGrid::RemoveTileOccupation(int row, int column)
+{
+	FString key = FString::Printf(TEXT("%d %d"), row, column);
+	this->BaseMap.Remove(key);
 }
 
 AActor* AGrid::GetTileOccupation(int row, int column)

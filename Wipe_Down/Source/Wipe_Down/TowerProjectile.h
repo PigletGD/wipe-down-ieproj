@@ -27,6 +27,7 @@ public:
 	virtual void BulletSetup(AScatEnemy* newTarget, int newProjectileDamage, FVector newPosition);
 
 	UPROPERTY(VisibleAnywhere) USphereComponent* CollisionSphere;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float meshScale;
 
 	float sphereRadius;
 

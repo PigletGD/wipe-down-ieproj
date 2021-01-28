@@ -8,6 +8,8 @@
 // Sets default values
 AScatEnemy::AScatEnemy()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Constructed Enemy Scat"));
+
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -34,6 +36,7 @@ void AScatEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	UE_LOG(LogTemp, Warning, TEXT("Begin Play Enemy Scat"));
 }
 
 // Called every frame
@@ -67,6 +70,18 @@ void AScatEnemy::TakeDamage(int damage) {
 
 		AWipeDownGameMode* GM = (AWipeDownGameMode*)this->GetWorld()->GetAuthGameMode();
 		GM->ReduceNumberOfEnemies();
+
+		int randNum = FMath::RandRange(0, 100);
+
+		if (randNum > 90) {
+			int randPool = FMath::RandRange(0, 2);
+
+			switch (randPool) {
+			case 0: GM->holySeatRatePUPool->RequestPoolable()->SetActorLocation(this->GetActorLocation()); break;
+			case 1: GM->wallHealthPUPool->RequestPoolable()->SetActorLocation(this->GetActorLocation()); break;
+			case 2: GM->shootingRatePUPool->RequestPoolable()->SetActorLocation(this->GetActorLocation()); break;
+			}
+		}
 
 		// Return to object pool
 		GM->basicEnemyPool->ReleasePoolable((APoolableCharacter*)this);

@@ -7,6 +7,8 @@
 // Sets default values
 AScatPlayer::AScatPlayer()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Constructed Scat Player"));
+
     // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
 
@@ -47,16 +49,17 @@ void AScatPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UE_LOG(LogTemp, Warning, TEXT("Begin Play Scat Player"));
+
 	this->wipeDownGameMode = (AWipeDownGameMode*)GetWorld()->GetAuthGameMode();
 
-	/*if (this->wipeDownGameMode != nullptr) {
-          UE_LOG(LogTemp, Warning, TEXT("Found Game Mode"));
+	if (!this->wipeDownGameMode->IsA(AWipeDownGameMode::StaticClass())) {
+		UE_LOG(LogTemp, Warning, TEXT("Not Wipe Down Game Mode: %s + %s"), *this->wipeDownGameMode->GetClass()->GetName(), *GetWorld()->GetAuthGameMode()->GetName());
+		this->wipeDownGameMode = nullptr;
 	}
-    else {
-      UE_LOG(LogTemp, Warning, TEXT("Game Mode Not Found"));
-    }*/
+	else UE_LOG(LogTemp, Warning, TEXT("Got Game Mode"));
 
-    
+	this->buildModeOn = false;
 }
 
 // Called every frame
@@ -64,9 +67,11 @@ void AScatPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-        this->CameraTargetPoint->SetRelativeLocation(CameraDistanceOffset + GetCapsuleComponent()->GetRelativeLocation());
+	this->CameraTargetPoint->SetRelativeLocation(CameraDistanceOffset + GetCapsuleComponent()->GetRelativeLocation());
 
-        // Selection Mode
+	if (this->buildModeOn)
+	{
+		// Selection Mode
 		if (Spawned != nullptr)
 		{
 			// Grabs grid reference
@@ -96,9 +101,9 @@ void AScatPlayer::Tick(float DeltaTime)
 			this->GetWorld()->LineTraceSingleByObjectType(HitResult, location, lineTraceEnd, objectTypeParams, traceParams);
 
 			// Check if hit result aligns with grid
-			
+
 			bool valid = grid->LocationToTile(this->HitResult.Location, this->row, this->column);
-			
+
 			if (!valid || !HitResult.bBlockingHit)
 			{
 				// Despawns and hide selection and building if raycast does not hit grid
@@ -112,13 +117,14 @@ void AScatPlayer::Tick(float DeltaTime)
 				this->Spawned->SetActorHiddenInGame(false);
 				FVector gridLocation;
 				grid->TileToGridLocation(gridLocation, this->row, this->column, true);
-				gridLocation.Z = this->Spawned->GetActorLocation().Z;
+				//gridLocation.Z = this->Spawned->GetActorLocation().Z;
 				this->Spawned->SetActorLocation(gridLocation);
 			}
 
 			// Sets the selected tile to location regardless of whether mouse is on grid
 			grid->SetSelectedTile(this->row, this->column);
 		}
+	}
 }
 
 // Called to bind functionality to input
@@ -129,9 +135,12 @@ void AScatPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 		// Sets up movement
-		PlayerInputComponent->BindAxis("MoveForward", this, &AScatPlayer::MoveForward);
+		/*PlayerInputComponent->BindAxis("MoveForward", this, &AScatPlayer::MoveForward);
 		PlayerInputComponent->BindAxis("MoveRight", this, &AScatPlayer::MoveRight);
+		PlayerInputComponent->BindAxis("CamRotate", this, &AScatPlayer::RotateCamera);
         PlayerInputComponent->BindAction("Spawn", IE_Pressed, this, &AScatPlayer::Build);
+        PlayerInputComponent->BindAction("ToggleBuild", IE_Pressed, this, &AScatPlayer::ToggleBuild);
+        PlayerInputComponent->BindAction("CancelBuild", IE_Pressed, this, &AScatPlayer::CancelBuild);*/
 	}
 
 	APlayerController* PlayerController = this->GetWorld()->GetFirstPlayerController();
@@ -162,44 +171,93 @@ void AScatPlayer::MoveRight(float Axis)
     AddMovementInput(Direction, Axis);
 }
 
+void AScatPlayer::RotateCamera(float Axis) {
+	FRotator CamRotation = this->CameraTargetPoint->GetComponentTransform().Rotator();
+	
+	this->CameraTargetPoint->SetRelativeRotation(FRotator(CamRotation.Pitch, CamRotation.Yaw + Axis, CamRotation.Roll));
+	
+}
+
 void AScatPlayer::Build()
 {
-	if (Spawned == nullptr)
+	if (this->buildModeOn)
 	{
-		FVector location = this->GetOwner()->GetActorLocation();
-		FRotator rotation = this->GetOwner()->GetActorRotation();
+		if (Spawned == nullptr)
+		{
+			FVector location = this->GetOwner()->GetActorLocation();
+			FRotator rotation = this->GetOwner()->GetActorRotation();
 
-		//if (Tower != nullptr)
-		//	this->Spawned = GetWorld()->SpawnActor<AActor>(Tower, location, rotation);
+			//if (Tower != nullptr)
+			//	this->Spawned = GetWorld()->SpawnActor<AActor>(Tower, location, rotation);
 
-		if (Tower != nullptr) {
-			this->Spawned = GetWorld()->SpawnActor<AActor>(Tower->GetClass(), location, rotation);
-			this->Spawned->SetActorTickEnabled(false);
-			this->Spawned->SetActorEnableCollision(false);
+			if (Tower != nullptr) {
+				this->Spawned = GetWorld()->SpawnActor<AActor>(Tower->GetClass(), location, rotation);
+				this->Spawned->SetActorTickEnabled(false);
+				this->Spawned->SetActorEnableCollision(false);
+			}
+			//else UE_LOG(LogTemp, Warning, TEXT("Could not find"));
 		}
-		//else UE_LOG(LogTemp, Warning, TEXT("Could not find"));
-	}
-	else if (HitResult.GetActor() != nullptr)
-	{
-		//
-		AGrid* grid = this->wipeDownGameMode->GetGrid();
-		UWipeDownGameInstance* gameInstance = Cast<UWipeDownGameInstance>(GetWorld()->GetGameInstance());
+		else if (HitResult.GetActor() != nullptr)
+		{
+			//
+			AGrid* grid = this->wipeDownGameMode->GetGrid();
+			UWipeDownGameInstance* gameInstance = Cast<UWipeDownGameInstance>(GetWorld()->GetGameInstance());
 
-		if (!grid->TileOccupied(this->row, this->column) && gameInstance->GetMoney() >= Tower->towerPrice) {
-			grid->SetTileOccupation(this->row, this->column, this->Spawned);
-			this->Spawned->SetActorTickEnabled(true);
-			this->Spawned->SetActorEnableCollision(true);
-			gameInstance->SpendMoney(Tower->towerPrice);
+			if (!grid->TileOccupied(this->row, this->column) && gameInstance->GetMoney() >= Tower->towerPrice) {
+				grid->SetTileOccupation(this->row, this->column, this->Spawned);
+				this->Spawned->SetActorTickEnabled(true);
+				this->Spawned->SetActorEnableCollision(true);
+				((ATower*)(this->Spawned))->SetCoords(this->row, this->column);
+				gameInstance->SpendMoney(Tower->towerPrice);
+				Spawned = nullptr;
+				// UE_LOG(LogTemp, Warning, TEXT("Spawned"));
+			}
+			else {
+				// UE_LOG(LogTemp, Warning, TEXT("Tile Occupied"));
+				Spawned->Destroy();
+			}
+			//
 			Spawned = nullptr;
-			// UE_LOG(LogTemp, Warning, TEXT("Spawned"));
 		}
-		else {
-			// UE_LOG(LogTemp, Warning, TEXT("Tile Occupied"));
-			Spawned->Destroy();
-		}
-		//
+	}
+}
+
+void AScatPlayer::CancelBuild()
+{
+	if (this->buildModeOn && Spawned != nullptr)
+	{
+		Spawned->Destroy();
 		Spawned = nullptr;
-		
+	}
+}
+
+void AScatPlayer::ToggleBuild()
+{
+	bool temp = true;
+
+	if (this->wipeDownGameMode->GetGrid() == nullptr) {
+		UE_LOG(LogTemp, Warning, TEXT("Grid is null"));
+		temp = false;
+	}
+
+	if (temp) {
+		AGrid* grid = this->wipeDownGameMode->GetGrid();
+		this->buildModeOn = !this->buildModeOn;
+
+		if (this->buildModeOn)
+		{
+			grid->SetActorHiddenInGame(false);
+
+			if (this->Spawned != nullptr)
+				this->Spawned->SetActorHiddenInGame(false);
+		}
+		else
+		{
+			grid->SetActorHiddenInGame(true);
+
+			if (this->Spawned != nullptr)
+				this->Spawned->SetActorHiddenInGame(true);
+		}
 	}
 }
 

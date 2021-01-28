@@ -4,10 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/SphereComponent.h"
+#include "PoolableActor.h"
+#include "WipeDownGameMode.h"
+#include "WipeDownGameInstance.h"
 #include "PowerUp.generated.h"
 
 UCLASS()
-class WIPE_DOWN_API APowerUp : public AActor
+class WIPE_DOWN_API APowerUp : public APoolableActor
 {
 	GENERATED_BODY()
 	
@@ -23,6 +27,24 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(VisibleAnywhere) USphereComponent* CollisionSphere;
+
+	UFUNCTION()
+		void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+			UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+			const FHitResult& SweepResult);
+
+	float sphereRadius;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) float buffTime;
+
+	virtual void Buff();
+	virtual void EndBuff();
+
 protected:
-	void buff();
+	AWipeDownGameMode* gameMode;
+	UWipeDownGameInstance* gameInstance;
+
+	bool buffActive = false;
+	float currentTicks = 0;
 };

@@ -5,12 +5,15 @@
 
 AWipeDownGameMode::AWipeDownGameMode()
 {
+    UE_LOG(LogTemp, Warning, TEXT("Constructed Game Mode"));
     PrimaryActorTick.bCanEverTick = true;
 }
 
 void AWipeDownGameMode::BeginPlay()
 {
     Super::BeginPlay();
+
+    UE_LOG(LogTemp, Warning, TEXT("Begin Play Game Mode"));
 
     TArray<AActor*> FoundActors;
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGrid::StaticClass(), FoundActors);
@@ -21,9 +24,9 @@ void AWipeDownGameMode::BeginPlay()
 
     if (FoundActors.Num() > 0) {
         this->grid = (AGrid*)FoundActors[0];
-        //UE_LOG(LogTemp, Warning, TEXT("Grid found"));
+        UE_LOG(LogTemp, Warning, TEXT("Grid found"));
     }
-    //else UE_LOG(LogTemp, Warning, TEXT("Grid not found"));
+    else UE_LOG(LogTemp, Warning, TEXT("Grid not found"));
 }
 
 AGrid* AWipeDownGameMode::GetGrid() const {

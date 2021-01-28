@@ -31,6 +31,7 @@ public:
 
 	bool TileOccupied(int row, int column);
 	void SetTileOccupation(int row, int column, AActor* actor);
+	void RemoveTileOccupation(int row, int column);
 	AActor* GetTileOccupation(int row, int column);
 private:
 	void InitializeVariables();

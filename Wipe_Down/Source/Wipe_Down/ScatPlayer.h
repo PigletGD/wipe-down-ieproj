@@ -55,11 +55,15 @@ private:
 
 	int row = -90;
 	int column = -90;
+	bool buildModeOn = false;
 
 public:
 	void MoveForward(float Axis);
 	void MoveRight(float Axis);
+	void RotateCamera(float Axis);
 	void Build();
+	void CancelBuild();
+	void ToggleBuild();
 
 private:
 	void InitializeTower();
