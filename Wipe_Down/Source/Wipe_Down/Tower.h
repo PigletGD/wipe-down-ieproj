@@ -8,6 +8,7 @@
 #include "Components/SphereComponent.h"
 #include "Components/PrimitiveComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "WipeDownGameInstance.h"
 #include "Tower.generated.h"
 
 UCLASS()
@@ -27,8 +28,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void TakeDamage(float damage);
-	virtual void Die();
+	void TakeDamage(float damage);
+	void Die();
 
 	virtual bool ActionCondition();
 	virtual void RunAction();
@@ -44,6 +45,8 @@ public:
 
 	int xCoord;
 	int yCoord;
+
+	UWipeDownGameInstance* gameInstance;
 private:
 	//UPROPERTY(EditAnywhere) UPrimitiveComponent* base;
 	//UPROPERTY(EditAnywhere) USphereComponent* sphereCollider;

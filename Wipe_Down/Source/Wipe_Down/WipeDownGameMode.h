@@ -22,7 +22,7 @@ class WIPE_DOWN_API AWipeDownGameMode : public AGameModeBase
 
 public:
     AWipeDownGameMode();
-    AGrid* GetGrid() const ;
+    UFUNCTION(BlueprintCallable, Category = "Game") AGrid* GetGrid() const ;
     UFUNCTION(BlueprintCallable, Category = "Game") int GetMaxEnemies();
     UFUNCTION(BlueprintCallable, Category = "Game") void AddMaxEnemies(int value);
     UFUNCTION(BlueprintCallable, Category = "Game") void NextWave();
@@ -30,13 +30,18 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Game") void ReduceNumberOfEnemies();
     UFUNCTION(BlueprintCallable, Category = "Game") void SetNumberOfEnemies(int value);
 
-    AGrid* grid;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) AGrid* grid;
 
     int waveNumber = 0;
     int numberOfEnemies;
     int maxEnemies;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolActor* bulletPool;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolActor* wallHealthPUPool;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolActor* shootingRatePUPool;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolActor* holySeatRatePUPool;
+
     UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolCharacter* basicEnemyPool;
 
 private:

@@ -19,8 +19,5 @@ public:
 	virtual void BeginPlay() override;
 	virtual void RunAction() override;
 
-	UPROPERTY(EditAnywhere) int moneyGeneration;
-	
-private:
-	UWipeDownGameInstance* gameInstance;
+	UPROPERTY(EditAnywhere) int moneyGeneration = 1;
 };

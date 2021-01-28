@@ -32,6 +32,9 @@ void ABasicShootingTower::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (this->gameInstance->shootingRatePUActive)
+		this->currentActionTick += DeltaTime * 0.5f;
+
 	/*DrawDebugSphere(this->GetWorld(), this->GetActorLocation(), sphereRadius, 20,
 		FColor::Purple, false, -1, 0, 1);*/
 }

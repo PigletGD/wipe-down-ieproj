@@ -71,6 +71,18 @@ void AScatEnemy::TakeDamage(int damage) {
 		AWipeDownGameMode* GM = (AWipeDownGameMode*)this->GetWorld()->GetAuthGameMode();
 		GM->ReduceNumberOfEnemies();
 
+		int randNum = FMath::RandRange(0, 100);
+
+		if (randNum > 90) {
+			int randPool = FMath::RandRange(0, 2);
+
+			switch (randPool) {
+			case 0: GM->holySeatRatePUPool->RequestPoolable()->SetActorLocation(this->GetActorLocation()); break;
+			case 1: GM->wallHealthPUPool->RequestPoolable()->SetActorLocation(this->GetActorLocation()); break;
+			case 2: GM->shootingRatePUPool->RequestPoolable()->SetActorLocation(this->GetActorLocation()); break;
+			}
+		}
+
 		// Return to object pool
 		GM->basicEnemyPool->ReleasePoolable((APoolableCharacter*)this);
 	}

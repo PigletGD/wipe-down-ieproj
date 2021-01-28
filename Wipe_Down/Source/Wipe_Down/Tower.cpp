@@ -29,6 +29,8 @@ void ATower::BeginPlay()
 
 	this->currentActionTick = 0;
 	this->currentTowerHealth = this->maxTowerHealth;
+
+	this->gameInstance = (UWipeDownGameInstance*)this->GetWorld()->GetGameInstance();
 }
 
 // Called every frame

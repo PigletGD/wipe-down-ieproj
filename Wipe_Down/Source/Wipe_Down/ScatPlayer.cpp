@@ -53,6 +53,12 @@ void AScatPlayer::BeginPlay()
 
 	this->wipeDownGameMode = (AWipeDownGameMode*)GetWorld()->GetAuthGameMode();
 
+	if (!this->wipeDownGameMode->IsA(AWipeDownGameMode::StaticClass())) {
+		UE_LOG(LogTemp, Warning, TEXT("Not Wipe Down Game Mode: %s + %s"), *this->wipeDownGameMode->GetClass()->GetName(), *GetWorld()->GetAuthGameMode()->GetName());
+		this->wipeDownGameMode = nullptr;
+	}
+	else UE_LOG(LogTemp, Warning, TEXT("Got Game Mode"));
+
 	this->buildModeOn = false;
 }
 
@@ -111,7 +117,7 @@ void AScatPlayer::Tick(float DeltaTime)
 				this->Spawned->SetActorHiddenInGame(false);
 				FVector gridLocation;
 				grid->TileToGridLocation(gridLocation, this->row, this->column, true);
-				gridLocation.Z = this->Spawned->GetActorLocation().Z;
+				//gridLocation.Z = this->Spawned->GetActorLocation().Z;
 				this->Spawned->SetActorLocation(gridLocation);
 			}
 
@@ -129,12 +135,12 @@ void AScatPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 		// Sets up movement
-		PlayerInputComponent->BindAxis("MoveForward", this, &AScatPlayer::MoveForward);
+		/*PlayerInputComponent->BindAxis("MoveForward", this, &AScatPlayer::MoveForward);
 		PlayerInputComponent->BindAxis("MoveRight", this, &AScatPlayer::MoveRight);
 		PlayerInputComponent->BindAxis("CamRotate", this, &AScatPlayer::RotateCamera);
         PlayerInputComponent->BindAction("Spawn", IE_Pressed, this, &AScatPlayer::Build);
         PlayerInputComponent->BindAction("ToggleBuild", IE_Pressed, this, &AScatPlayer::ToggleBuild);
-        PlayerInputComponent->BindAction("CancelBuild", IE_Pressed, this, &AScatPlayer::CancelBuild);
+        PlayerInputComponent->BindAction("CancelBuild", IE_Pressed, this, &AScatPlayer::CancelBuild);*/
 	}
 
 	APlayerController* PlayerController = this->GetWorld()->GetFirstPlayerController();
@@ -227,22 +233,31 @@ void AScatPlayer::CancelBuild()
 
 void AScatPlayer::ToggleBuild()
 {
-	AGrid* grid = this->wipeDownGameMode->GetGrid();
-	this->buildModeOn = !this->buildModeOn;
+	bool temp = true;
 
-	if (this->buildModeOn)
-	{
-		grid->SetActorHiddenInGame(false);
-
-		if (this->Spawned != nullptr)
-			this->Spawned->SetActorHiddenInGame(false);
+	if (this->wipeDownGameMode->GetGrid() == nullptr) {
+		UE_LOG(LogTemp, Warning, TEXT("Grid is null"));
+		temp = false;
 	}
-	else
-	{
-		grid->SetActorHiddenInGame(true);
 
-		if (this->Spawned != nullptr)
-			this->Spawned->SetActorHiddenInGame(true);
+	if (temp) {
+		AGrid* grid = this->wipeDownGameMode->GetGrid();
+		this->buildModeOn = !this->buildModeOn;
+
+		if (this->buildModeOn)
+		{
+			grid->SetActorHiddenInGame(false);
+
+			if (this->Spawned != nullptr)
+				this->Spawned->SetActorHiddenInGame(false);
+		}
+		else
+		{
+			grid->SetActorHiddenInGame(true);
+
+			if (this->Spawned != nullptr)
+				this->Spawned->SetActorHiddenInGame(true);
+		}
 	}
 }
 

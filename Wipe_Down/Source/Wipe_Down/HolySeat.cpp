@@ -7,11 +7,13 @@ void AHolySeat::BeginPlay()
 {
 	Super::BeginPlay();
 	UE_LOG(LogTemp, Warning, TEXT("Begin Play Holy Seat"));
-
-	gameInstance = Cast<UWipeDownGameInstance>(GetWorld()->GetGameInstance());
 }
 
 void AHolySeat::RunAction()
 {
-	gameInstance->AddMoney(moneyGeneration);
+	int modifier = 1;
+	if (this->gameInstance->holySeatRatePUActive)
+		modifier = 2;
+
+	this->gameInstance->AddMoney(moneyGeneration * modifier);
 }
