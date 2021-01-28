@@ -14,7 +14,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "WipeDownGameMode.h"
 #include "Tower.h"
-
+#include "Components/AudioComponent.h"
+#include "Sound/SoundCue.h"
 #include "ScatPlayer.generated.h"
 
 UCLASS()
@@ -52,10 +53,14 @@ private:
 	FHitResult HitResult;
 
 	UPROPERTY(EditAnywhere) float Distance = 2000.0f;
-
+	UPROPERTY(EditAnywhere) UAudioComponent* walkingSound;
+	UPROPERTY(EditAnywhere) USoundCue* walkingCue;
+	
 	int row = -90;
 	int column = -90;
 	bool buildModeOn = false;
+	float isMovingForward = false;
+	float isMovingSidewards = false;
 
 public:
 	void MoveForward(float Axis);
