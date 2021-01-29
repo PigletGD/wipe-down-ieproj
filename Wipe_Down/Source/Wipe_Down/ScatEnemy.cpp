@@ -73,7 +73,7 @@ void AScatEnemy::TakeDamage(int damage) {
 
 		int randNum = FMath::RandRange(0, 100);
 
-		if (randNum >= 0) {
+		if (randNum >= 70) {
 			int randPool = FMath::RandRange(0, 2);
 
 			AActor* actorPU;

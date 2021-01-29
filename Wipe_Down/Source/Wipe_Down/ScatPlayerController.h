@@ -24,5 +24,4 @@ private:
 	void OnBuild();
 	void OnCancelBuild();
 	void OnToggleBuild();
-
 };
