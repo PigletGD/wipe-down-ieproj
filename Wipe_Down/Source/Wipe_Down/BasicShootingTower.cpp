@@ -45,7 +45,15 @@ void ABasicShootingTower::RunAction()
 	AWipeDownGameMode* GM = (AWipeDownGameMode*) this->GetWorld()->GetAuthGameMode();
 	ATowerProjectile* bullet = (ATowerProjectile*) GM->bulletPool->RequestPoolable();
 
-	if (bullet != nullptr && targets.Num() > 0) bullet->BulletSetup(targets[0], 1, this->GetActorLocation());
+	if (bullet != nullptr && targets.Num() > 0)
+	{
+		FVector direction = this->GetActorLocation() - targets[0]->GetActorLocation();
+		direction = FVector(direction.X, direction.Y, 0);
+		FRotator rot = FRotationMatrix::MakeFromX(direction).Rotator();
+		this->SetActorRotation(rot);
+
+		bullet->BulletSetup(targets[0], 1, this->GetActorLocation());
+	}
 	else if (bullet != nullptr) GM->bulletPool->ReleasePoolable((APoolableActor*)bullet);
 }
 

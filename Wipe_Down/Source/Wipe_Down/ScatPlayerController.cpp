@@ -6,13 +6,14 @@
 
 void AScatPlayerController::BeginPlay()
 {
+
 	UInputComponent* inputComponent = this->FindComponentByClass<UInputComponent>();
 
 	inputComponent->BindAxis("MoveForward", this, &AScatPlayerController::OnMoveForward);
 	inputComponent->BindAxis("MoveRight", this, &AScatPlayerController::OnMoveRight);
 	inputComponent->BindAxis("CamRotate", this, &AScatPlayerController::OnRotateCamera);
 	inputComponent->BindAction("Spawn", IE_Pressed, this, &AScatPlayerController::OnBuild);
-	inputComponent->BindAction("ToggleBuild", IE_Pressed, this, &AScatPlayerController::OnToggleBuild);
+	inputComponent->BindAction("ToggleBuild", IE_Pressed, this, &AScatPlayerController::OnToggleBuild).bConsumeInput = false;
 	inputComponent->BindAction("CancelBuild", IE_Pressed, this, &AScatPlayerController::OnCancelBuild);
 }
 

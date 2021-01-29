@@ -44,6 +44,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolActor* holySeatRatePUPool;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolCharacter* basicEnemyPool;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolCharacter* tankEnemyPool;
 
 private:
     void BeginPlay() override;

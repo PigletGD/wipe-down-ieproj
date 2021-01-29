@@ -48,7 +48,6 @@ private:
 	AWipeDownGameMode* wipeDownGameMode;
 
 	//UPROPERTY(EditAnywhere) TSubclassOf<AActor> Tower;
-	UPROPERTY(EditAnywhere) ATower* Tower = nullptr;
 	UPROPERTY(EditAnywhere) AActor* Spawned = nullptr;
 	FHitResult HitResult;
 
@@ -70,6 +69,7 @@ public:
 	void CancelBuild();
 	void ToggleBuild();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) ATower* Tower = nullptr;
 private:
 	void InitializeTower();
 
