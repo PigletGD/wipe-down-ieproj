@@ -24,6 +24,7 @@ public:
     AWipeDownGameMode();
     UFUNCTION(BlueprintCallable, Category = "Game") AGrid* GetGrid() const ;
     UFUNCTION(BlueprintCallable, Category = "Game") int GetMaxEnemies();
+    UFUNCTION(BlueprintCallable, Category = "Game") void ResetMaxEnemies();
     UFUNCTION(BlueprintCallable, Category = "Game") void AddMaxEnemies(int value);
     UFUNCTION(BlueprintCallable, Category = "Game") void NextWave();
     UFUNCTION(BlueprintCallable, Category = "Game") int GetNumberOfEnemies();

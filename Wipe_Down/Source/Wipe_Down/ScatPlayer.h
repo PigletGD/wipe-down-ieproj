@@ -15,7 +15,7 @@
 #include "WipeDownGameMode.h"
 #include "Tower.h"
 #include "Components/AudioComponent.h"
-#include "Sound/SoundCue.h"
+#include "Sound/SoundWave.h"
 #include "ScatPlayer.generated.h"
 
 UCLASS()

@@ -37,6 +37,10 @@ int AWipeDownGameMode::GetMaxEnemies() {
     return this->maxEnemies;
 }
 
+void AWipeDownGameMode::ResetMaxEnemies() {
+    this->maxEnemies = 3;
+}
+
 void AWipeDownGameMode::AddMaxEnemies(int value) {
     this->maxEnemies += value;
 }

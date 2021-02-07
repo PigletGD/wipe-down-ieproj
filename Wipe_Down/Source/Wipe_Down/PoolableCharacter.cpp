@@ -42,7 +42,6 @@ void APoolableCharacter::OnActivate()
 	this->SetActorHiddenInGame(false);
 	this->SetActorEnableCollision(true);
 	this->SetActorTickEnabled(true);
-	//this->FindComponentByClass<UPrimitiveComponent>()->SetSimulatePhysics(true);
 }
 
 void APoolableCharacter::OnRelease()

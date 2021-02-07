@@ -24,20 +24,16 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(VisibleAnywhere) USphereComponent* CollisionSphere;
-
 	UFUNCTION()
 		void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 			UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
 			const FHitResult& SweepResult);
-
 	float sphereRadius;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float buffTime;
-
 	virtual void Buff();
 	virtual void EndBuff();
 
