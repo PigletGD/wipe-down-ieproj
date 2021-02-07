@@ -61,7 +61,7 @@ void ATower::Die()
 	//UE_LOG(LogTemp, Warning, TEXT("Tower has been killed"));
 	AWipeDownGameMode* wipeDownGameMode = (AWipeDownGameMode*)GetWorld()->GetAuthGameMode();
 	AGrid* grid = wipeDownGameMode->GetGrid();
-
+	UGameplayStatics::PlaySound2D(this, DestroySound);
 	if (grid->TileOccupied(this->xCoord, this->yCoord)) {
 		grid->RemoveTileOccupation(this->xCoord, this->yCoord);
 	}
@@ -76,7 +76,7 @@ bool ATower::ActionCondition()
 
 void ATower::RunAction()
 {
-	UGameplayStatics::PlaySound2D(this, soundWave);
+	UGameplayStatics::PlaySound2D(this, FireSound);
 	//UE_LOG(LogTemp, Warning, TEXT("Running an action from base class"));
 }
 

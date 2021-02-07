@@ -53,5 +53,6 @@ private:
 	//UPROPERTY(EditAnywhere) UPrimitiveComponent* base;
 	//UPROPERTY(EditAnywhere) USphereComponent* sphereCollider;
 	UPROPERTY(EditAnywhere) UStaticMeshComponent* BaseMesh;
-	UPROPERTY(EditAnywhere,BlueprintReadWrite) USoundWave* soundWave;
+	UPROPERTY(EditAnywhere) USoundWave* FireSound;
+	UPROPERTY(EditAnywhere) USoundWave* DestroySound;
 };
