@@ -25,6 +25,7 @@ public:
 	TArray<AScatEnemy*> targets;
 
 	UPROPERTY(VisibleAnywhere) USphereComponent* CollisionSphere;
+	UPROPERTY(EditAnywhere) USoundWave* FireSound;
 
 	float sphereRadius;
 

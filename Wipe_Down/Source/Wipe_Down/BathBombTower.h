@@ -38,7 +38,7 @@ public:
 	UFUNCTION()
 		void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 			UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
-
+	UPROPERTY(EditAnywhere) USoundWave* ExplosionSound;
 private:
 	float currentTicks = 0;
 	bool triggerActivated = false;

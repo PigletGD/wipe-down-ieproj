@@ -3,6 +3,7 @@
 
 #include "TowerSpawner.h"
 #include "Camera/CameraComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 
 // Sets default values for this component's properties
@@ -114,8 +115,10 @@ void UTowerSpawner::Spawn()
 		FVector location = this->GetOwner()->GetActorLocation();
 		FRotator rotation = this->GetOwner()->GetActorRotation();
 
-		if (Tower != nullptr)
+		if (Tower != nullptr) {
 			this->Spawned = GetWorld()->SpawnActor<AActor>(Tower, location, rotation);
+			UGameplayStatics::PlaySound2D(this, CreateSound);
+		}
 	}
 	else if (HitResult.GetActor() != nullptr)
 	{

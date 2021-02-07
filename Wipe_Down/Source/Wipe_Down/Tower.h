@@ -42,7 +42,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float towerPrice;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) int currentTowerHealth;
-
 	float currentActionTick;
 
 	int xCoord;
@@ -53,6 +52,5 @@ private:
 	//UPROPERTY(EditAnywhere) UPrimitiveComponent* base;
 	//UPROPERTY(EditAnywhere) USphereComponent* sphereCollider;
 	UPROPERTY(EditAnywhere) UStaticMeshComponent* BaseMesh;
-	UPROPERTY(EditAnywhere) USoundWave* FireSound;
 	UPROPERTY(EditAnywhere) USoundWave* DestroySound;
 };

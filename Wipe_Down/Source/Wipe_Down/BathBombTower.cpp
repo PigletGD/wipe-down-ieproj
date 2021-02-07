@@ -64,7 +64,7 @@ void ABathBombTower::BlowUp()
 {
 	FVector bombPosition = this->GetActorLocation();
 	bombPosition.Z -= 50.0f;
-
+	UGameplayStatics::PlaySound2D(this, ExplosionSound);
 	for (int i = 0; i < targets.Num(); i++) {
 		targets[i]->TakeDamage(2);
 	}

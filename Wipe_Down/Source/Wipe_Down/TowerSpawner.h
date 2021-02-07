@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Sound/SoundWave.h"
 #include "TowerSpawner.generated.h"
 
 
@@ -30,7 +31,7 @@ private:
 	FHitResult HitResult;
 
 	UPROPERTY(EditAnywhere) float Distance = 99999.0f;
-
+	UPROPERTY(EditAnywhere) USoundWave* CreateSound;
 	void PutAtPointer();
 	void Spawn();
 	void Despawn();

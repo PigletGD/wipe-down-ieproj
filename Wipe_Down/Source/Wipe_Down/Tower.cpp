@@ -76,7 +76,6 @@ bool ATower::ActionCondition()
 
 void ATower::RunAction()
 {
-	UGameplayStatics::PlaySound2D(this, FireSound);
 	//UE_LOG(LogTemp, Warning, TEXT("Running an action from base class"));
 }
 

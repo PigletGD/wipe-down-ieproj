@@ -44,7 +44,7 @@ void ABasicShootingTower::RunAction()
 	//UE_LOG(LogTemp, Warning, TEXT("Basic Shooting Tower Action Run"));
 	AWipeDownGameMode* GM = (AWipeDownGameMode*) this->GetWorld()->GetAuthGameMode();
 	ATowerProjectile* bullet = (ATowerProjectile*) GM->bulletPool->RequestPoolable();
-
+	UGameplayStatics::PlaySound2D(this, FireSound);
 	if (bullet != nullptr && targets.Num() > 0)
 	{
 		FVector direction = this->GetActorLocation() - targets[0]->GetActorLocation();
