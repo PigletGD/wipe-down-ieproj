@@ -62,6 +62,9 @@ void AScatPlayer::BeginPlay()
 	this->zLocation = 854;
 
 	this->buildModeOn = false;
+	this->walkingSound->bLooping = true;
+	this->walkingSound->Volume = 0;
+	UGameplayStatics::PlaySound2D(this, walkingSound);
 }
 
 // Called every frame
@@ -129,14 +132,14 @@ void AScatPlayer::Tick(float DeltaTime)
 			grid->SetSelectedTile(this->row, this->column);
 		}
 	}
-	/*if(isMovingForward != 0 && isMovingSidewards != 0 && walkingSound->IsPlaying() == false)
+	if(isMovingForward != 0 && isMovingSidewards != 0)
 	{
-		this->walkingSound->Play();
+		walkingSound->Volume = 50;
 	}
-	else if(isMovingForward == 0 && isMovingSidewards == 0 && walkingSound->IsPlaying() == true)
+	else if(isMovingForward == 0 && isMovingSidewards == 0)
 	{
-		this->walkingSound->Stop();
-	}*/
+		walkingSound->Volume = 0;
+	}
 }
 
 // Called to bind functionality to input

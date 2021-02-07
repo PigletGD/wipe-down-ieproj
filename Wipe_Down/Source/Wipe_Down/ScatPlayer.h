@@ -52,8 +52,8 @@ private:
 	FHitResult HitResult;
 
 	UPROPERTY(EditAnywhere) float Distance = 2000.0f;
-	UPROPERTY(EditAnywhere) UAudioComponent* walkingSound;
-	UPROPERTY(EditAnywhere) USoundCue* walkingCue;
+	UPROPERTY(EditAnywhere) USoundWave* walkingSound;
+	UPROPERTY(EditAnywhere) USoundWave* walkingCue;
 	
 	int row = -90;
 	int column = -90;
