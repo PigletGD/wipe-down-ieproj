@@ -56,7 +56,7 @@ void APowerUp::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Other
 		//UE_LOG(LogTemp, Warning, TEXT("Bullet Landed: %s + %s"), *OtherActor->GetClass()->GetName(), *OtherComp->GetName());
 
 		this->Buff();
-
+		UGameplayStatics::PlaySound2D(this, BuffupSound);
 		// release bullet
 		//AWipeDownGameMode* GM = (AWipeDownGameMode*)this->GetWorld()->GetAuthGameMode();
 		//GM->bulletPool->ReleasePoolable((APoolableActor*)this);

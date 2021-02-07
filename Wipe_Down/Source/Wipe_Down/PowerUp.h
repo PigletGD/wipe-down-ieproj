@@ -8,6 +8,7 @@
 #include "PoolableActor.h"
 #include "WipeDownGameMode.h"
 #include "WipeDownGameInstance.h"
+#include "Sound/SoundWave.h"
 #include "PowerUp.generated.h"
 
 UCLASS()
@@ -34,6 +35,7 @@ public:
 	float sphereRadius;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float buffTime;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) USoundWave* BuffupSound;
 	virtual void Buff();
 	virtual void EndBuff();
 

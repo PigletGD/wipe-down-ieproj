@@ -117,7 +117,6 @@ void UTowerSpawner::Spawn()
 
 		if (Tower != nullptr) {
 			this->Spawned = GetWorld()->SpawnActor<AActor>(Tower, location, rotation);
-			UGameplayStatics::PlaySound2D(this, CreateSound);
 		}
 	}
 	else if (HitResult.GetActor() != nullptr)

@@ -31,7 +31,6 @@ private:
 	FHitResult HitResult;
 
 	UPROPERTY(EditAnywhere) float Distance = 99999.0f;
-	UPROPERTY(EditAnywhere) USoundWave* CreateSound;
 	void PutAtPointer();
 	void Spawn();
 	void Despawn();

@@ -42,6 +42,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float towerPrice;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) int currentTowerHealth;
+	UPROPERTY(EditAnywhere) USoundWave* CreateSound;
 	float currentActionTick;
 
 	int xCoord;
