@@ -24,4 +24,7 @@ private:
 	void OnBuild();
 	void OnCancelBuild();
 	void OnToggleBuild();
+	void OnToggleShooting();
+	void OnToggleWall();
+	void OnToggleBathBomb();
 };

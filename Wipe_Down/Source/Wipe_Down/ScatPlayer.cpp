@@ -295,20 +295,17 @@ void AScatPlayer::ToggleBuild()
 	}
 }
 
-void AScatPlayer::InitializeTower()
+void AScatPlayer::ToggleShooting()
 {
-	/*
-	UE_LOG(LogTemp, Warning, TEXT("Execute"));
+	this->Tower = this->Shooting;
+}
 
-    static ConstructorHelpers::FObjectFinder<UBlueprint> TowerBlueprint(TEXT("Blueprint'/Game/Blueprints/Tower_BP.Tower_BP'"));
-	if (TowerBlueprint.Object != nullptr)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Found"));
-        this->Tower = (UClass*)TowerBlueprint.Object->GeneratedClass;
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Could Not Find"));
-	}
-	*/
+void AScatPlayer::ToggleWall()
+{
+	this->Tower = this->Wall;
+}
+
+void AScatPlayer::ToggleBathBomb()
+{
+	this->Tower = this->BathBomb;
 }

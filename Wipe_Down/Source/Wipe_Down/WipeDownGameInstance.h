@@ -29,6 +29,7 @@ public:
 	UPROPERTY(BlueprintReadWrite) bool wallHealthPUActive = false;
 	UPROPERTY(BlueprintReadWrite) bool shootingRatePUActive = false;
 	UPROPERTY(BlueprintReadWrite) bool holySeatRatePUActive = false;
+	UPROPERTY(BlueprintReadWrite) bool isPaused = false;
 
 	UPROPERTY(BlueprintReadWrite) AActor* holySeat;
 };

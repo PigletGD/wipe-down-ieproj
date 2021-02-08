@@ -14,6 +14,9 @@ void AScatPlayerController::BeginPlay()
 	inputComponent->BindAxis("CamRotate", this, &AScatPlayerController::OnRotateCamera);
 	inputComponent->BindAction("Spawn", IE_Pressed, this, &AScatPlayerController::OnBuild);
 	inputComponent->BindAction("ToggleBuild", IE_Pressed, this, &AScatPlayerController::OnToggleBuild).bConsumeInput = false;
+	inputComponent->BindAction("ToggleShootingTower", IE_Pressed, this, &AScatPlayerController::OnToggleShooting).bConsumeInput = false;
+	inputComponent->BindAction("ToggleWall", IE_Pressed, this, &AScatPlayerController::OnToggleWall).bConsumeInput = false;
+	inputComponent->BindAction("ToggleBathBomb", IE_Pressed, this, &AScatPlayerController::OnToggleBathBomb).bConsumeInput = false;
 	inputComponent->BindAction("CancelBuild", IE_Pressed, this, &AScatPlayerController::OnCancelBuild);
 }
 
@@ -63,4 +66,28 @@ void AScatPlayerController::OnToggleBuild()
 
 	if (scatPlayer != nullptr)
 		scatPlayer->ToggleBuild();
+}
+
+void AScatPlayerController::OnToggleShooting()
+{
+	AScatPlayer* scatPlayer = (AScatPlayer*)this->GetPawn<AScatPlayer>();
+
+	if (scatPlayer != nullptr)
+		scatPlayer->ToggleShooting();
+}
+
+void AScatPlayerController::OnToggleWall()
+{
+	AScatPlayer* scatPlayer = (AScatPlayer*)this->GetPawn<AScatPlayer>();
+
+	if (scatPlayer != nullptr)
+		scatPlayer->ToggleWall();
+}
+
+void AScatPlayerController::OnToggleBathBomb()
+{
+	AScatPlayer* scatPlayer = (AScatPlayer*)this->GetPawn<AScatPlayer>();
+
+	if (scatPlayer != nullptr)
+		scatPlayer->ToggleBathBomb();
 }

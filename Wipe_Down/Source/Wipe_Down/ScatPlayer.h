@@ -66,12 +66,18 @@ public:
 	void MoveRight(float Axis);
 	void RotateCamera(float Axis);
 	void Build();
-	void CancelBuild();
 	void ToggleBuild();
+	void CancelBuild();
+	void ToggleShooting();
+	void ToggleWall();
+	void ToggleBathBomb();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) ATower* Tower = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) ATower* Shooting = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) ATower* Wall = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) ATower* BathBomb = nullptr;
 private:
-	void InitializeTower();
+	//void InitializeTower();
 
 	float zLocation;
 
