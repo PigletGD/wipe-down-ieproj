@@ -2,6 +2,7 @@
 
 
 #include "WipeDownGameInstance.h"
+#include "Tower.h"
 
 void UWipeDownGameInstance::Init()
 {
@@ -14,7 +15,7 @@ void UWipeDownGameInstance::Init()
 
 void UWipeDownGameInstance::ResetValues()
 {
-	this->money = 0;
+	this->money = 20;
 	this->wallHealthPUActive = false;
 	this->shootingRatePUActive = false;
 	this->holySeatRatePUActive = false;
@@ -33,4 +34,13 @@ int UWipeDownGameInstance::GetMoney()
 void UWipeDownGameInstance::SpendMoney(int value)
 {
 	this->money -= value;
+}
+
+void UWipeDownGameInstance::HealMainTower(int value)
+{
+	ATower* temp = Cast<ATower>(this->holySeat);
+	temp->currentTowerHealth += value;
+
+	if (temp->currentTowerHealth > temp->maxTowerHealth)
+		temp->currentTowerHealth = temp->maxTowerHealth;
 }

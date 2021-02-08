@@ -191,12 +191,16 @@ bool AGrid::LocationToTile(FVector location, int& row, int& column)
 
 bool AGrid::TileValid(int row, int column)
 {
-  if (row >= 0 && row < numRows &&
-      column >= 0 && column < numColumns) {
-	  return true;
-  }
+	if (row >= 8 && row <= 10 && column >= 9 && column <= 11) {
+		return false;
+    }
+		
+    else if (row >= 0 && row < numRows &&
+       column >= 0 && column < numColumns) {
+  	   return !TileOccupied(row, column);
+    }
 
-  return false;
+    return false;
 }
 
 void AGrid::SetSelectedTile(int row, int column)

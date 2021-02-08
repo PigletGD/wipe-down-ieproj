@@ -43,6 +43,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolActor* wallHealthPUPool;
     UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolActor* shootingRatePUPool;
     UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolActor* holySeatRatePUPool;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolActor* instantMoneyPUPool;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolActor* instantHealthPUPool;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolCharacter* basicEnemyPool;
     UPROPERTY(EditAnywhere, BlueprintReadWrite) UObjectPoolCharacter* tankEnemyPool;

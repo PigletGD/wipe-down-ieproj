@@ -53,7 +53,8 @@ private:
 
 	UPROPERTY(EditAnywhere) float Distance = 2000.0f;
 	UPROPERTY(EditAnywhere) USoundWave* walkingSound;
-	
+	UPROPERTY(EditAnywhere) USoundWave* buildSound;
+
 	int row = -90;
 	int column = -90;
 	bool buildModeOn = false;
@@ -73,4 +74,6 @@ private:
 	void InitializeTower();
 
 	float zLocation;
+
+	bool isWalking;
 };

@@ -61,6 +61,8 @@ void AScatPlayer::BeginPlay()
 
 	this->zLocation = 854;
 
+	this->isWalking = false;
+
 	this->buildModeOn = false;
 	this->walkingSound->bLooping = true;
 	this->walkingSound->Volume = 0;
@@ -132,13 +134,15 @@ void AScatPlayer::Tick(float DeltaTime)
 			grid->SetSelectedTile(this->row, this->column);
 		}
 	}
-	if(isMovingForward != 0 && isMovingSidewards != 0)
+	if((isMovingForward != 0 || isMovingSidewards != 0) && !isWalking)
 	{
 		walkingSound->Volume = 50;
+		isWalking = true;
 	}
-	else if(isMovingForward == 0 && isMovingSidewards == 0)
+	else if(isMovingForward == 0 && isMovingSidewards == 0 && isWalking)
 	{
 		walkingSound->Volume = 0;
+		isWalking = false;
 	}
 }
 
@@ -226,13 +230,20 @@ void AScatPlayer::Build()
 			AGrid* grid = this->wipeDownGameMode->GetGrid();
 			UWipeDownGameInstance* gameInstance = Cast<UWipeDownGameInstance>(GetWorld()->GetGameInstance());
 
+			UE_LOG(LogTemp, Warning, TEXT("Row: %d Col: %d"), this->row, this->column);
+
 			if (!grid->TileOccupied(this->row, this->column) && gameInstance->GetMoney() >= Tower->towerPrice) {
 				grid->SetTileOccupation(this->row, this->column, this->Spawned);
 				this->Spawned->SetActorTickEnabled(true);
 				this->Spawned->SetActorEnableCollision(true);
 				((ATower*)(this->Spawned))->SetCoords(this->row, this->column);
 				gameInstance->SpendMoney(Tower->towerPrice);
+				UStaticMeshComponent* mesh = Cast<UStaticMeshComponent>(Spawned->GetDefaultSubobjectByName(TEXT("StaticMesh")));
+				if (mesh == nullptr) mesh = Cast<UStaticMeshComponent>(Spawned->GetDefaultSubobjectByName(TEXT("BaseMesh")));
+				ATower* temp = Cast<ATower>(Spawned);
+				mesh->SetMaterial(0, temp->physicalMaterial);
 				Spawned = nullptr;
+				UGameplayStatics::PlaySound2D(this, buildSound);
 				// UE_LOG(LogTemp, Warning, TEXT("Spawned"));
 			}
 			else {

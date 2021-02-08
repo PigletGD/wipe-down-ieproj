@@ -74,8 +74,8 @@ void AScatEnemy::TakeDamage(int damage) {
 		int randNum = FMath::RandRange(0, 100);
 
 		if (randNum >= 70) {
-			int randPool = FMath::RandRange(0, 2);
-
+			int randPool = FMath::RandRange(0, 4);
+			
 			AActor* actorPU;
 
 			switch (randPool) {
@@ -83,6 +83,7 @@ void AScatEnemy::TakeDamage(int damage) {
 				actorPU = GM->holySeatRatePUPool->RequestPoolable();
 
 				if (actorPU != nullptr) {
+					UE_LOG(LogTemp, Warning, TEXT("Missing Holy Seat Upgrade"));
 					actorPU->SetActorLocation(this->GetActorLocation());
 				}
 				break;
@@ -90,6 +91,7 @@ void AScatEnemy::TakeDamage(int damage) {
 				actorPU = GM->wallHealthPUPool->RequestPoolable();
 				
 				if (actorPU != nullptr) {
+					UE_LOG(LogTemp, Warning, TEXT("Missing Wall Health Upgrade"));
 					actorPU->SetActorLocation(this->GetActorLocation());
 				}
 				break;
@@ -97,6 +99,23 @@ void AScatEnemy::TakeDamage(int damage) {
 				actorPU = GM->shootingRatePUPool->RequestPoolable();
 				
 				if (actorPU != nullptr) {
+					UE_LOG(LogTemp, Warning, TEXT("Missing Shooting Upgrade"));
+					actorPU->SetActorLocation(this->GetActorLocation());
+				}
+				break;
+			case 3:
+				actorPU = GM->instantHealthPUPool->RequestPoolable();
+
+				if (actorPU != nullptr) {
+					UE_LOG(LogTemp, Warning, TEXT("Missing Health Upgrade"));
+					actorPU->SetActorLocation(this->GetActorLocation());
+				}
+				break;
+			case 4:
+				actorPU = GM->instantMoneyPUPool->RequestPoolable();
+
+				if (actorPU != nullptr) {
+					UE_LOG(LogTemp, Warning, TEXT("Missing Money Upgrade"));
 					actorPU->SetActorLocation(this->GetActorLocation());
 				}
 				break;

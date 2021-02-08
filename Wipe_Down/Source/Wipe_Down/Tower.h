@@ -48,6 +48,8 @@ public:
 	int xCoord;
 	int yCoord;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UMaterial* physicalMaterial;
+
 	UWipeDownGameInstance* gameInstance;
 private:
 	//UPROPERTY(EditAnywhere) UPrimitiveComponent* base;

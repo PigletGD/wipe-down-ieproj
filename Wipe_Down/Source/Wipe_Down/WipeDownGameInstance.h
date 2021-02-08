@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "GameFramework/Actor.h"
 #include "WipeDownGameInstance.generated.h"
 
 /**
@@ -22,9 +23,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Money") void AddMoney(int value);
 	UFUNCTION(BlueprintCallable, Category = "Money") int GetMoney();
 	UFUNCTION(BlueprintCallable, Category = "Money") void SpendMoney(int value);
+	UFUNCTION(BlueprintCallable, Category = "Heal") void HealMainTower(int value);
 
 	UPROPERTY(BlueprintReadWrite) int money = 0;
 	UPROPERTY(BlueprintReadWrite) bool wallHealthPUActive = false;
 	UPROPERTY(BlueprintReadWrite) bool shootingRatePUActive = false;
 	UPROPERTY(BlueprintReadWrite) bool holySeatRatePUActive = false;
+
+	UPROPERTY(BlueprintReadWrite) AActor* holySeat;
 };

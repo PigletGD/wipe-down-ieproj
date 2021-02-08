@@ -26,7 +26,7 @@ void ATower::BeginPlay()
 	Super::BeginPlay();
 	
 	UE_LOG(LogTemp, Warning, TEXT("Begin Play Tower"));
-	UGameplayStatics::PlaySound2D(this, CreateSound);
+	//UGameplayStatics::PlaySound2D(this, CreateSound);
 	this->currentActionTick = 0;
 	this->currentTowerHealth = this->maxTowerHealth;
 
