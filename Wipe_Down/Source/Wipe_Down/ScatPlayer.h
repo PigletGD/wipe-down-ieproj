@@ -54,6 +54,7 @@ private:
 	UPROPERTY(EditAnywhere) float Distance = 2000.0f;
 	UPROPERTY(EditAnywhere) USoundWave* walkingSound;
 	UPROPERTY(EditAnywhere) USoundWave* buildSound;
+	UPROPERTY(EditAnywhere) USoundWave* bgMusic;
 
 	int row = -90;
 	int column = -90;

@@ -5,8 +5,6 @@
 
 void APowerUpHolySeatRateUp::Buff()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Holy Seat Rate Power Up Buff"));
-
 	this->currentTicks = 0;
 	this->buffActive = true;
 
@@ -20,8 +18,6 @@ void APowerUpHolySeatRateUp::Buff()
 
 void APowerUpHolySeatRateUp::EndBuff()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Holy Seat Rate Power Up End Buff"));
-
 	this->buffActive = false;
 
 	this->gameInstance->holySeatRatePUActive = false;

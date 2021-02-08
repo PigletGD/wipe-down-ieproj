@@ -64,9 +64,13 @@ void AScatPlayer::BeginPlay()
 	this->isWalking = false;
 
 	this->buildModeOn = false;
+
 	this->walkingSound->bLooping = true;
 	this->walkingSound->Volume = 0;
 	UGameplayStatics::PlaySound2D(this, walkingSound);
+
+	//this->bgMusic->bLooping = true;
+	//UGameplayStatics::PlaySound2D(this, bgMusic);
 }
 
 // Called every frame
