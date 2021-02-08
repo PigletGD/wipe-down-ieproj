@@ -6,6 +6,7 @@
 void AHolySeat::BeginPlay()
 {
 	Super::BeginPlay();
+	CreateSound->Volume = 0;
 	UE_LOG(LogTemp, Warning, TEXT("Begin Play Holy Seat"));
 }
 
