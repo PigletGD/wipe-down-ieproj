@@ -66,7 +66,7 @@ void ABathBombTower::BlowUp()
 	bombPosition.Z -= 50.0f;
 	UGameplayStatics::PlaySound2D(this, ExplosionSound);
 	for (int i = 0; i < targets.Num(); i++) {
-		targets[i]->TakeDamage(2);
+		targets[i]->TakeDamage(2 * this->gameInstance->levelBathBomb);
 	}
 
 	this->RadialForce->FireImpulse();

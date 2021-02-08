@@ -26,6 +26,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Heal") void HealMainTower(int value);
 
 	UPROPERTY(BlueprintReadWrite) int money = 0;
+
+	UPROPERTY(BlueprintReadWrite) int levelHolySeat = 1;
+	UPROPERTY(BlueprintReadWrite) int levelShooting = 1;
+	UPROPERTY(BlueprintReadWrite) int levelWall = 1;
+	UPROPERTY(BlueprintReadWrite) int levelBathBomb = 1;
+
 	UPROPERTY(BlueprintReadWrite) bool wallHealthPUActive = false;
 	UPROPERTY(BlueprintReadWrite) bool shootingRatePUActive = false;
 	UPROPERTY(BlueprintReadWrite) bool holySeatRatePUActive = false;

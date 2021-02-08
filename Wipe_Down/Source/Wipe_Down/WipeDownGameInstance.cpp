@@ -16,6 +16,12 @@ void UWipeDownGameInstance::Init()
 void UWipeDownGameInstance::ResetValues()
 {
 	this->money = 20;
+
+	this->levelHolySeat = 1;
+	this->levelShooting = 1;
+	this->levelWall = 1;
+	this->levelBathBomb = 1;
+
 	this->wallHealthPUActive = false;
 	this->shootingRatePUActive = false;
 	this->holySeatRatePUActive = false;

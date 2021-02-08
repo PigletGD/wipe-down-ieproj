@@ -16,5 +16,5 @@ void AHolySeat::RunAction()
 	if (this->gameInstance->holySeatRatePUActive)
 		modifier = 2;
 
-	this->gameInstance->AddMoney(moneyGeneration * modifier);
+	this->gameInstance->AddMoney((moneyGeneration + this->gameInstance->levelHolySeat - 1) * modifier);
 }

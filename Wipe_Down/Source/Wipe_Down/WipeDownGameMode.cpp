@@ -19,7 +19,7 @@ void AWipeDownGameMode::BeginPlay()
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGrid::StaticClass(), FoundActors);
 
     this->waveNumber = 1;
-    this->maxEnemies = 3;
+    this->maxEnemies = 2;
     this->numberOfEnemies = 0;
 
     if (FoundActors.Num() > 0) {
@@ -38,7 +38,7 @@ int AWipeDownGameMode::GetMaxEnemies() {
 }
 
 void AWipeDownGameMode::ResetMaxEnemies() {
-    this->maxEnemies = 3;
+    this->maxEnemies = 2;
 }
 
 void AWipeDownGameMode::AddMaxEnemies(int value) {
@@ -46,12 +46,14 @@ void AWipeDownGameMode::AddMaxEnemies(int value) {
 }
 
 int AWipeDownGameMode::GetNumberOfEnemies() {
+    //UE_LOG(LogTemp, Warning, TEXT("Max Enemies %d"), this->maxEnemies);
     return this->numberOfEnemies;
 }
 
 void AWipeDownGameMode::NextWave() {
+    //UE_LOG(LogTemp, Warning, TEXT("Next Wave"));
     this->waveNumber++;
-    this->maxEnemies += 3;
+    this->maxEnemies += 2;
 }
 
 void AWipeDownGameMode::ReduceNumberOfEnemies() {

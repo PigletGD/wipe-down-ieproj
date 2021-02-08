@@ -30,10 +30,10 @@ ABasicShootingTower::ABasicShootingTower()
 
 void ABasicShootingTower::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+	Super::Tick(DeltaTime * this->gameInstance->levelShooting);
 
 	if (this->gameInstance->shootingRatePUActive)
-		this->currentActionTick += DeltaTime * 0.5f;
+		this->currentActionTick += DeltaTime * this->gameInstance->levelShooting * 0.5f;
 
 	/*DrawDebugSphere(this->GetWorld(), this->GetActorLocation(), sphereRadius, 20,
 		FColor::Purple, false, -1, 0, 1);*/
@@ -41,7 +41,7 @@ void ABasicShootingTower::Tick(float DeltaTime)
 
 void ABasicShootingTower::RunAction()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Basic Shooting Tower Action Run"));
+	//UE_LOG(LogTemp, Warning, TEXT("Basic Shooting Tower Action Run"));
 	AWipeDownGameMode* GM = (AWipeDownGameMode*) this->GetWorld()->GetAuthGameMode();
 	ATowerProjectile* bullet = (ATowerProjectile*) GM->bulletPool->RequestPoolable();
 	UGameplayStatics::PlaySound2D(this, FireSound);
