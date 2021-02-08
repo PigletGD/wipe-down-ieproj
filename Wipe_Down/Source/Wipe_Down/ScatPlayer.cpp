@@ -136,7 +136,7 @@ void AScatPlayer::Tick(float DeltaTime)
 	}
 	if((isMovingForward != 0 || isMovingSidewards != 0) && !isWalking)
 	{
-		walkingSound->Volume = 50;
+		walkingSound->Volume = 7;
 		isWalking = true;
 	}
 	else if(isMovingForward == 0 && isMovingSidewards == 0 && isWalking)
