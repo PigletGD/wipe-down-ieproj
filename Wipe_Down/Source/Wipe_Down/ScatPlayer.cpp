@@ -59,7 +59,7 @@ void AScatPlayer::BeginPlay()
 	}
 	else UE_LOG(LogTemp, Warning, TEXT("Got Game Mode"));
 
-	this->zLocation = 854;
+	this->zLocation = 810;
 
 	this->isWalking = false;
 

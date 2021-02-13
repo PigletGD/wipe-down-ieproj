@@ -146,7 +146,7 @@ void AScatEnemy::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Oth
 	const FHitResult& SweepResult)
 {
 	if ((OtherActor->GetClass()->IsChildOf(ATower::StaticClass())) && (OtherActor != this) && (OtherComp->GetClass() != USphereComponent::StaticClass())) {
-		//UE_LOG(LogTemp, Warning, TEXT("Enemy Scat Something entered: %s + %s"), *OtherActor->GetClass()->GetName(), *OtherComp->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("Enemy Scat Something entered: %s + %s"), *OtherActor->GetClass()->GetName(), *OtherComp->GetName());
 		targets.Add((ATower*)OtherActor);
 	}
 }
@@ -155,7 +155,7 @@ void AScatEnemy::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* Other
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	if ((OtherActor->GetClass()->IsChildOf(ATower::StaticClass())) && (OtherActor != this) && (OtherComp->GetClass() != USphereComponent::StaticClass())) {
-		//UE_LOG(LogTemp, Warning, TEXT("Enemy Scat Something exited: %s + %s"), *OtherActor->GetName(), *OtherComp->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("Enemy Scat Something exited: %s + %s"), *OtherActor->GetName(), *OtherComp->GetName());
 		targets.Remove((ATower*)OtherActor);
 	}
 }
